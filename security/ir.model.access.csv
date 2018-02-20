@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_is_ordinateur,access_is_ordinateur,model_is_ordinateur,base.group_user,1,1,1,1
+access_is_utilisateur,access_is_utilisateur,model_is_utilisateur,base.group_user,1,1,1,1
+access_is_action,access_is_action,model_is_action,base.group_user,1,1,1,1
+

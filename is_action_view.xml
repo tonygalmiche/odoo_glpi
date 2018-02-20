@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="is_action_form_view" model="ir.ui.view">
+            <field name="name">is_action_from_view</field>
+            <field name="model">is.action</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet class="oe_form_sheet_width_wider">
+                        <group>
+                            <field name="name" />
+                            <field name="ordinateur_id" />
+                            <field name="utilisateur_id" />
+                            <field name="mail" />
+                            <field name="date_creation" />
+                            <field name="date_prevue" />
+                            <field name="date_realisee" />
+                            <field name="commentaire" />
+                        </group>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_action_tree_view">
+            <field name="name">is_action_tree_view</field>
+            <field name="model">is.action</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="ordinateur_id"    widget="many2one_clickable"/>
+                    <field name="utilisateur_id"   widget="many2one_clickable"/>
+                    <field name="mail" />
+                    <field name="date_creation" />
+                    <field name="date_prevue" />
+                    <field name="date_realisee" />
+                    <field name="commentaire" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_action_search_view" model="ir.ui.view">
+            <field name="name">is_action_search_view</field>
+            <field name="model">is.action</field>
+            <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="ordinateur_id" />
+                <field name="utilisateur_id" />
+                <field name="date_creation" />
+                <field name="date_prevue" />
+                <field name="date_realisee" />
+                <field name="commentaire" />
+            </search>
+            </field>
+        </record>
+        <record id="is_action_action" model="ir.actions.act_window">
+            <field name="name">Actions</field>
+            <field name="res_model">is.action</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</openerp>
