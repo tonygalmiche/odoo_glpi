@@ -106,19 +106,18 @@ class is_action_globale(models.Model):
             else:
                 rows = self.env['is.utilisateur'].search(filtre)
             date=obj.date_prevue_debut
-            mk = datetime.strptime(date, '%Y-%m-%d')
-            days=0
-            if obj.nb_actions_semaine!=0:
-                days=int(ceil(7.0/obj.nb_actions_semaine))
+            mk_debut = datetime.strptime(date, '%Y-%m-%d')
             date_prevue=obj.date_prevue_debut
+            days=0.0
             for row in rows:
                 if obj.filtre_sur=='ordinateur':
                     actions = self.env['is.action'].search([('action_globale_id','=',obj.id),('ordinateur_id','=',row.id)])
                 else:
                     actions = self.env['is.action'].search([('action_globale_id','=',obj.id),('utilisateur_id','=',row.id)])
                 if len(actions)==0 or actions[0].date_realisee==False:
-                    if days>0:
-                        mk = mk + timedelta(days=days)
+                    if obj.nb_actions_semaine!=0:
+                        days=days+7.0/obj.nb_actions_semaine
+                        mk = mk_debut + timedelta(days=int(ceil(days)))
                         date_prevue=mk.strftime('%Y-%m-%d')
                     else:
                         date_prevue=obj.date_prevue_debut
