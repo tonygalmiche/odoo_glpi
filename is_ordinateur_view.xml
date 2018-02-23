@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+
+
+        <!-- Partage -->
+        <record id="is_partage_form_view" model="ir.ui.view">
+            <field name="name">is_partage_from_view</field>
+            <field name="model">is.partage</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_partage_tree_view">
+            <field name="name">is_partage_tree_view</field>
+            <field name="model">is.partage</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_partage_search_view" model="ir.ui.view">
+            <field name="name">is_partage_search_view</field>
+            <field name="model">is.partage</field>
+            <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+            </search>
+            </field>
+        </record>
+        <record id="is_partage_action" model="ir.actions.act_window">
+            <field name="name">Partages</field>
+            <field name="res_model">is.partage</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
         <record id="is_ordinateur_form_view" model="ir.ui.view">
             <field name="name">is_ordinateur_from_view</field>
             <field name="model">is.ordinateur</field>
@@ -8,11 +52,18 @@
                 <form>
                     <sheet class="oe_form_sheet_width_wider">
                         <group>
-                            <field name="site_id" />
-                            <field name="name" />
-                            <field name="service_id" />
-                            <field name="utilisateur_id" />
-                            <field name="date_debut" />
+                            <group>
+                                <field name="site_id" />
+                                <field name="name" />
+                                <field name="service_id" />
+                                <field name="utilisateur_id" />
+                                <field name="date_debut" />
+                            </group>
+                            <group>
+                                <field name="partage_ids"  widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <group>
                             <field name="commentaire" />
                         </group>
                         <group>

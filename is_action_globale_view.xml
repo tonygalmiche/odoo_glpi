@@ -23,14 +23,14 @@
                 <form>
                     <header>
                         <button 
-                            name="creer_action_par_ordinateur"
+                            name="creer_actions"
                             string="Créer ou actualiser les actions pour les ordinateurs"
                             confirm="Voulez-vous vraiment créer ou actualiser les actions ?"
                             type="object"
                             attrs="{'invisible': [('filtre_sur', '!=', 'ordinateur')]}"
                         />
                         <button 
-                            name="creer_action_par_utilisateur"
+                            name="creer_actions"
                             string="Créer ou actualiser les actions pour les utilisateurs"
                             confirm="Voulez-vous vraiment créer ou actualiser les actions ?"
                             type="object"
@@ -49,10 +49,9 @@
                                 <field name="name" />
                                 <field name="action" />
                                 <field name="date_creation" />
-                                <field name="date_prevue" />
-                                <field name="date_realisee" />
-                                <field name="avancement" />
-
+                                <field name="date_prevue_debut" />
+                                <field name="tps_prevu" />
+                                <field name="nb_actions_semaine" />
                             </group>
                             <group string="Filtre création actions">
                                 <field name="filtre_sur" />
@@ -60,6 +59,11 @@
                                 <field name="service_id" />
                                 <field name="utilisateur_ids" widget="many2many_tags"  attrs="{'invisible': [('filtre_sur', '!=', 'utilisateur')]}" />
                                 <field name="ordinateur_ids"  widget="many2many_tags"  attrs="{'invisible': [('filtre_sur', '!=', 'ordinateur')]}" />
+                                <field name="nb_actions" />
+                                <field name="nb_actions_restant" />
+                                <field name="date_prevue" />
+                                <field name="date_realisee" />
+                                <field name="avancement" />
                             </group>
                         </group>
                         <group>
@@ -93,10 +97,13 @@
                     <field name="name" />
                     <field name="action" />
                     <field name="date_creation" />
+                    <field name="date_prevue_debut" />
+                    <field name="tps_prevu"          sum="Total"/>
+                    <field name="nb_actions_semaine" />
+                    <field name="nb_actions_restant" sum="Total"/>
                     <field name="date_prevue" />
                     <field name="date_realisee" />
                     <field name="avancement" widget="progressbar"/>
-                    <field name="commentaire" />
                 </tree>
             </field>
         </record>

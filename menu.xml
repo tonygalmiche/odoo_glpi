@@ -18,6 +18,7 @@
         <menuitem id="is_tables_menu"            sequence="40" name="Tables"             parent="is_glpi_main_menu"/>
         <menuitem id="is_site_menu"              sequence="10" name="Sites"              parent="is_tables_menu" action="is_site_action" />
         <menuitem id="is_service_menu"           sequence="20" name="Services"           parent="is_tables_menu" action="is_service_action" />
+        <menuitem id="is_partage_menu"           sequence="30" name="Partages Windows"   parent="is_tables_menu" action="is_partage_action" />
 
         <!-- Déplacement des menus standard pour les masquer -->
         <menuitem id="mail.mail_feeds_main"      sequence="90" name="Messagerie"         parent="base.menu_custom"/>

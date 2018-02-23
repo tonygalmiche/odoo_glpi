@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-import datetime
 from openerp import models,fields,api
 from openerp.tools.translate import _
 from openerp.exceptions import Warning
+from datetime import datetime, timedelta
+import time
+from math import *
 
 
 def _date_creation():
@@ -21,27 +23,32 @@ class is_action_globale(models.Model):
         for obj in self:
             nb1=len(self.env['is.action'].search([('action_globale_id','=',obj.id),('date_realisee','!=',False)]))
             nb2=len(obj.action_ids)
-
             avancement=0
             if nb2!=0:
                 avancement=100.0*nb1/nb2
-            print nb1,nb2,avancement
             obj.avancement=avancement
+            obj.nb_actions=nb2
+            obj.nb_actions_restant=nb2-nb1
 
 
-    name            = fields.Char('N°action', readonly=True)
-    action          = fields.Char('Action', required=True)
-    date_creation   = fields.Date('Date création', required=True)
-    date_prevue     = fields.Date('Date prévue'  , required=True)
-    date_realisee   = fields.Date('Date réalisée')
-    avancement      = fields.Float("% avancement", readonly=True, compute='_compute_avancement', store=True)
-    commentaire     = fields.Text('Commentaire')
-    filtre_sur      = fields.Selection([('utilisateur', u'Utilisateur'),('ordinateur', u'Ordinateur')], u"Filtre sur", required=True)
-    site_id         = fields.Many2one('is.site', 'Site')
-    service_id      = fields.Many2one('is.service', 'Service')
-    utilisateur_ids = fields.Many2many('is.utilisateur', 'is_action_globale_utilisateur_rel', 'action_globale_id','utilisateur_id', string="Utilisateurs")
-    ordinateur_ids  = fields.Many2many('is.ordinateur' , 'is_action_globale_ordinateur_rel' , 'action_globale_id','ordinateur_id' , string="Ordinateurs" )
-    action_ids      = fields.One2many('is.action', 'action_globale_id', u'Actions', readonly=True)
+    name               = fields.Char('N°action', readonly=True)
+    action             = fields.Char('Action', required=True)
+    date_creation      = fields.Date('Date création', required=True)
+    date_prevue_debut  = fields.Date('Date prévue de début', required=True)
+    tps_prevu          = fields.Float("Temps prévu par action (H)")
+    nb_actions_semaine = fields.Integer("Nombre d'actions par semaine",help="Si 0, la date de fin sera égale à la date de début")
+    nb_actions         = fields.Integer("Nombre d'actions", readonly=True)
+    nb_actions_restant = fields.Integer("Nombre d'actions restant", readonly=True)
+    date_prevue        = fields.Date('Date prévue de fin', readonly=True)
+    date_realisee      = fields.Date('Date réalisée')
+    avancement         = fields.Float("% avancement", readonly=True, compute='_compute_avancement', store=True)
+    commentaire        = fields.Text('Commentaire')
+    filtre_sur         = fields.Selection([('utilisateur', u'Utilisateur'),('ordinateur', u'Ordinateur')], u"Filtre sur", required=True)
+    site_id            = fields.Many2one('is.site', 'Site')
+    service_id         = fields.Many2one('is.service', 'Service')
+    utilisateur_ids    = fields.Many2many('is.utilisateur', 'is_action_globale_utilisateur_rel', 'action_globale_id','utilisateur_id', string="Utilisateurs")
+    ordinateur_ids     = fields.Many2many('is.ordinateur' , 'is_action_globale_ordinateur_rel' , 'action_globale_id','ordinateur_id' , string="Ordinateurs" )
+    action_ids         = fields.One2many('is.action', 'action_globale_id', u'Actions', readonly=True)
 
 
     _defaults = {
@@ -60,8 +67,18 @@ class is_action_globale(models.Model):
 
 
 
+#                end_date = datetime.strptime(end_date, '%Y-%m-%d')
+#                #days=int(quantity*product.temps_realisation/(3600*24))
+#                #days=product.produce_delay+int(quantity*product.temps_realisation/(3600*24))
+#                tps_fab=quantity*product.temps_realisation/(3600*24)
+#                days=int(ceil(tps_fab))
+#                start_date= end_date - timedelta(days=days)
+#                start_date = start_date.strftime('%Y-%m-%d')
+
+
+
     @api.multi
-    def creer_action_par_ordinateur(self):
+    def creer_actions(self):
         for obj in self:
             filtre=[]
             if obj.site_id.id:
@@ -72,72 +89,65 @@ class is_action_globale(models.Model):
                 ids=[]
                 for utilisateur in obj.utilisateur_ids:
                     ids.append(utilisateur.id)
-                filtre.append(('utilisateur_id','in', ids))
+                if obj.filtre_sur=='ordinateur':
+                    filtre.append(('utilisateur_id','in', ids))
+                else:
+                    filtre.append(('id','in', ids))
             if len(obj.ordinateur_ids)>0:
                 ids=[]
                 for ordinateur in obj.ordinateur_ids:
                     ids.append(ordinateur.id)
-                filtre.append(('id','in', ids))
-            ordinateurs = self.env['is.ordinateur'].search(filtre)
-            for ordinateur in ordinateurs:
-                actions = self.env['is.action'].search([('action_globale_id','=',obj.id),('ordinateur_id','=',ordinateur.id)])
+                if obj.filtre_sur=='ordinateur':
+                    filtre.append(('id','in', ids))
+                else:
+                    filtre.append(('ordinateur_id','in', ids))
+            if obj.filtre_sur=='ordinateur':
+                rows = self.env['is.ordinateur'].search(filtre)
+            else:
+                rows = self.env['is.utilisateur'].search(filtre)
+            date=obj.date_prevue_debut
+            mk = datetime.strptime(date, '%Y-%m-%d')
+            days=0
+            if obj.nb_actions_semaine!=0:
+                days=int(ceil(7.0/obj.nb_actions_semaine))
+            date_prevue=obj.date_prevue_debut
+            for row in rows:
+                if obj.filtre_sur=='ordinateur':
+                    actions = self.env['is.action'].search([('action_globale_id','=',obj.id),('ordinateur_id','=',row.id)])
+                else:
+                    actions = self.env['is.action'].search([('action_globale_id','=',obj.id),('utilisateur_id','=',row.id)])
+                if len(actions)==0 or actions[0].date_realisee==False:
+                    if days>0:
+                        mk = mk + timedelta(days=days)
+                        date_prevue=mk.strftime('%Y-%m-%d')
+                    else:
+                        date_prevue=obj.date_prevue_debut
                 if len(actions)==0:
-                    vals={
-                        'action_globale_id': obj.id,
-                        'name'             : obj.action,
-                        'ordinateur_id'    : ordinateur.id,
-                        'utilisateur_id'   : ordinateur.utilisateur_id.id,
-                        'date_prevue'      : obj.date_prevue,
-                    }
+                    if obj.filtre_sur=='ordinateur':
+                        vals={
+                            'action_globale_id': obj.id,
+                            'name'             : obj.action,
+                            'ordinateur_id'    : row.id,
+                            'utilisateur_id'   : row.utilisateur_id.id,
+                            'date_prevue'      : date_prevue,
+                            'tps_prevu'        : obj.tps_prevu,
+                        }
+                    else:
+                        vals={
+                            'action_globale_id': obj.id,
+                            'name'             : obj.action,
+                            'utilisateur_id'   : row.id,
+                            'date_prevue'      : date_prevue,
+                            'tps_prevu'        : obj.tps_prevu,
+                        }
                     res=self.env['is.action'].create(vals)
                 else:
                     for action in actions:
-                        vals={
-                            'name'             : obj.action,
-                            'date_prevue'      : obj.date_prevue,
-                        }
-                        action.write(vals)
-
-
-    @api.multi
-    def creer_action_par_utilisateur(self):
-        for obj in self:
-            filtre=[]
-            if obj.site_id.id:
-                filtre.append(('site_id'       ,'=' , obj.site_id.id))
-            if obj.service_id.id:
-                filtre.append(('service_id'       ,'=' , obj.service_id.id))
-            if len(obj.utilisateur_ids)>0:
-                ids=[]
-                for utilisateur in obj.utilisateur_ids:
-                    ids.append(utilisateur.id)
-                filtre.append(('id','in', ids))
-            if len(obj.ordinateur_ids)>0:
-                ids=[]
-                for ordinateur in obj.ordinateur_ids:
-                    ids.append(ordinateur.id)
-                filtre.append(('ordinateur_id','in', ids))
-
-            print 'filtre=',filtre
-
-            utilisateurs = self.env['is.utilisateur'].search(filtre)
-            for utilisateur in utilisateurs:
-                actions = self.env['is.action'].search([('action_globale_id','=',obj.id),('utilisateur_id','=',utilisateur.id)])
-                if len(actions)==0:
-                    vals={
-                        'action_globale_id': obj.id,
-                        'name'             : obj.action,
-                        'utilisateur_id'   : utilisateur.id,
-                        'date_prevue'      : obj.date_prevue,
-                    }
-                    res=self.env['is.action'].create(vals)
-                else:
-                    for action in actions:
-                        vals={
-                            'name'             : obj.action,
-                            'date_prevue'      : obj.date_prevue,
-                        }
-                        action.write(vals)
+                        action.name      = obj.action
+                        action.tps_prevu = obj.tps_prevu
+                        if action.date_realisee==False:
+                            action.date_prevue=date_prevue
+            obj.date_prevue=date_prevue
 
 
     @api.multi

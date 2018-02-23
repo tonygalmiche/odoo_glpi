@@ -15,7 +15,9 @@
                             <field name="mail" />
                             <field name="date_creation" />
                             <field name="date_prevue" />
+                            <field name="tps_prevu" readonly="1" />
                             <field name="date_realisee" />
+                            <field name="tps_passe"/>
                             <field name="commentaire" />
                         </group>
                     </sheet>
@@ -35,7 +37,9 @@
                     <field name="mail" />
                     <field name="date_creation" />
                     <field name="date_prevue" />
+                    <field name="tps_prevu" sum="Total"/>
                     <field name="date_realisee" />
+                    <field name="tps_passe" sum="Total"/>
                     <field name="commentaire" />
                 </tree>
             </field>
@@ -59,6 +63,7 @@
                         <filter string="Utilisateur"      context="{'group_by':'utilisateur_id'}"/>
                         <filter string="Semaine prévue"   context="{'group_by':'date_prevue:week'}"/>
                         <filter string="Mois prévu"       context="{'group_by':'date_prevue:month'}"/>
+                        <filter string="Jour réalisé"     context="{'group_by':'date_realisee:day'}"/>
                         <filter string="Semaine réalisée" context="{'group_by':'date_realisee:week'}"/>
                         <filter string="Mois réalisé"     context="{'group_by':'date_realisee:month'}"/>
                     </group>

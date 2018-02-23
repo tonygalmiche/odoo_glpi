@@ -22,7 +22,9 @@ class is_action(models.Model):
     mail              = fields.Char('Mail', related='utilisateur_id.mail', readonly=True)
     date_creation     = fields.Date('Date création', required=True)
     date_prevue       = fields.Date('Date prévue'  , required=True)
+    tps_prevu         = fields.Float("Temps prévu (H)")
     date_realisee     = fields.Date('Date réalisée')
+    tps_passe         = fields.Float("Temps passé (H)")
     commentaire       = fields.Text('Commentaire')
 
 
