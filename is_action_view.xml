@@ -8,6 +8,7 @@
                 <form>
                     <sheet class="oe_form_sheet_width_wider">
                         <group>
+                            <field name="action_globale_id" />
                             <field name="name" />
                             <field name="ordinateur_id" />
                             <field name="utilisateur_id" />
@@ -27,9 +28,10 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="action_globale_id"  widget="many2one_clickable"/>
                     <field name="name" />
-                    <field name="ordinateur_id"    widget="many2one_clickable"/>
-                    <field name="utilisateur_id"   widget="many2one_clickable"/>
+                    <field name="ordinateur_id"      widget="many2one_clickable"/>
+                    <field name="utilisateur_id"     widget="many2one_clickable"/>
                     <field name="mail" />
                     <field name="date_creation" />
                     <field name="date_prevue" />
@@ -42,15 +44,25 @@
             <field name="name">is_action_search_view</field>
             <field name="model">is.action</field>
             <field name="arch" type="xml">
-            <search>
-                <field name="name" />
-                <field name="ordinateur_id" />
-                <field name="utilisateur_id" />
-                <field name="date_creation" />
-                <field name="date_prevue" />
-                <field name="date_realisee" />
-                <field name="commentaire" />
-            </search>
+                <search>
+                    <field name="action_globale_id" />
+                    <field name="name" />
+                    <field name="ordinateur_id" />
+                    <field name="utilisateur_id" />
+                    <field name="date_creation" />
+                    <field name="date_prevue" />
+                    <field name="date_realisee" />
+                    <field name="commentaire" />
+                    <group expand="0" string="Regrouper par...">
+                        <filter string="Action globale"   context="{'group_by':'action_globale_id'}"/>
+                        <filter string="Ordinateur"       context="{'group_by':'ordinateur_id'}"/>
+                        <filter string="Utilisateur"      context="{'group_by':'utilisateur_id'}"/>
+                        <filter string="Semaine prévue"   context="{'group_by':'date_prevue:week'}"/>
+                        <filter string="Mois prévu"       context="{'group_by':'date_prevue:month'}"/>
+                        <filter string="Semaine réalisée" context="{'group_by':'date_realisee:week'}"/>
+                        <filter string="Mois réalisé"     context="{'group_by':'date_realisee:month'}"/>
+                    </group>
+                </search>
             </field>
         </record>
         <record id="is_action_action" model="ir.actions.act_window">

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="is_save_mozilla_form_view" model="ir.ui.view">
+            <field name="name">is_save_mozilla_from_view</field>
+            <field name="model">is.save.mozilla</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="site_id" />
+                                <field name="service_id" />
+                                <field name="ordinateur_id" />
+                                <field name="utilisateur_id" />
+                                <field name="mail" />
+                            </group>
+                            <group>
+                                <field name="partage" />
+                                <field name="heure_debut" />
+                                <field name="heure_fin" />
+                                <field name="temps" />
+                                <field name="taille" />
+                            </group>
+                        </group>
+                        <group>
+                            <field name="resultat" />
+                        </group>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_save_mozilla_tree_view">
+            <field name="name">is_save_mozilla_tree_view</field>
+            <field name="model">is.save.mozilla</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="site_id" />
+                    <field name="service_id" />
+                    <field name="ordinateur_id" />
+                    <field name="utilisateur_id" />
+                    <field name="mail" />
+                    <field name="partage" />
+                    <field name="heure_debut" />
+                    <field name="heure_fin" />
+                    <field name="temps" />
+                    <field name="taille" />
+                    <field name="resultat" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_save_mozilla_search_view" model="ir.ui.view">
+            <field name="name">is_save_mozilla_search_view</field>
+            <field name="model">is.save.mozilla</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="site_id" />
+                    <field name="service_id" />
+                    <field name="ordinateur_id" />
+                    <field name="utilisateur_id" />
+                    <field name="mail" />
+                    <field name="partage" />
+                    <field name="heure_debut" />
+                    <field name="resultat" />
+                    <group expand="0" string="Regrouper par...">
+                        <filter string="Site"             context="{'group_by':'site_id'}"/>
+                        <filter string="Service"          context="{'group_by':'service_id'}"/>
+                        <filter string="Ordinateur"       context="{'group_by':'ordinateur_id'}"/>
+                        <filter string="Utilisateur"      context="{'group_by':'utilisateur_id'}"/>
+                        <filter string="Jour de début"    context="{'group_by':'heure_debut:day'}"/>
+                        <filter string="Semaine de début" context="{'group_by':'heure_debut:week'}"/>
+                        <filter string="Mois de début"    context="{'group_by':'heure_debut:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="is_save_mozilla_action" model="ir.actions.act_window">
+            <field name="name">Sauvegarde Mozilla</field>
+            <field name="res_model">is.save.mozilla</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</openerp>

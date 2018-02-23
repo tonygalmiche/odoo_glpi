@@ -1,6 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+
+        <!-- Site -->
+        <record id="is_site_form_view" model="ir.ui.view">
+            <field name="name">is_site_from_view</field>
+            <field name="model">is.site</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="code" />
+                        </group>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_site_tree_view">
+            <field name="name">is_site_tree_view</field>
+            <field name="model">is.site</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="code" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_site_search_view" model="ir.ui.view">
+            <field name="name">is_site_search_view</field>
+            <field name="model">is.site</field>
+            <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="code" />
+            </search>
+            </field>
+        </record>
+        <record id="is_site_action" model="ir.actions.act_window">
+            <field name="name">Sites</field>
+            <field name="res_model">is.site</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Service -->
+        <record id="is_service_form_view" model="ir.ui.view">
+            <field name="name">is_service_from_view</field>
+            <field name="model">is.service</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="commentaire" />
+                        </group>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_service_tree_view">
+            <field name="name">is_service_tree_view</field>
+            <field name="model">is.service</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="commentaire" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_service_search_view" model="ir.ui.view">
+            <field name="name">is_service_search_view</field>
+            <field name="model">is.service</field>
+            <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="commentaire" />
+            </search>
+            </field>
+        </record>
+        <record id="is_service_action" model="ir.actions.act_window">
+            <field name="name">Services</field>
+            <field name="res_model">is.service</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
         <record id="is_utilisateur_form_view" model="ir.ui.view">
             <field name="name">is_utilisateur_from_view</field>
             <field name="model">is.utilisateur</field>
@@ -8,23 +97,28 @@
                 <form>
                     <sheet class="oe_form_sheet_width_wider">
                         <group>
+                            <field name="site_id" />
                             <field name="name" />
                             <field name="login" />
                             <field name="mail" />
-                            <field name="service" />
+                            <field name="service_id" />
                             <field name="commentaire" />
                         </group>
                         <group>
                             <field name="action_ids" nolabel="1">
                                 <tree>
+                                    <button string="Accèder à l'action" name="acceder_action" type="object" icon="gtk-zoom-in" />
                                     <field name="name" />
-                                    <field name="ordinateur_id" />
+                                    <field name="ordinateur_id" widget="many2one_clickable"/>
                                     <field name="date_creation" />
                                     <field name="date_prevue" />
                                     <field name="date_realisee" />
                                     <field name="commentaire" />
                                 </tree>
                             </field>
+                        </group>
+                        <group>
+                            <field name="active" />
                         </group>
                     </sheet>
                </form>
@@ -36,10 +130,11 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="site_id" />
                     <field name="name" />
                     <field name="login" />
                     <field name="mail" />
-                    <field name="service" />
+                    <field name="service_id" />
                     <field name="commentaire" />
                 </tree>
             </field>
@@ -49,10 +144,11 @@
             <field name="model">is.utilisateur</field>
             <field name="arch" type="xml">
             <search>
+                <field name="site_id" />
                 <field name="name" />
                 <field name="login" />
                 <field name="mail" />
-                <field name="service" />
+                <field name="service_id" />
                 <field name="commentaire" />
             </search>
             </field>
