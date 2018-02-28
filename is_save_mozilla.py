@@ -10,8 +10,7 @@ class is_save_mozilla(models.Model):
     _description = "Sauvegarde Mozilla"
     _order='heure_debut desc'
 
-    heure_debut     = fields.Datetime('Heure début')
-    heure_fin       = fields.Datetime('Heure début')
+    date            = fields.Date('Date sauvegarde')
     site_id         = fields.Many2one('is.site', 'Site')
     service_id      = fields.Many2one('is.service', 'Service')
     utilisateur_id  = fields.Many2one('is.utilisateur', 'Utilisateur')
@@ -20,6 +19,8 @@ class is_save_mozilla(models.Model):
     mail            = fields.Char('Mail')
     taille          = fields.Integer('Taille (Mo)')
     nb_modifs       = fields.Integer('Nb modifs')
+    heure_debut     = fields.Datetime('Heure début')
+    heure_fin       = fields.Datetime('Heure fin')
     temps           = fields.Integer('Temps (mn)')
     resultat        = fields.Text('Résultat')
 
