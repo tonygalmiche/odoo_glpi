@@ -17,10 +17,11 @@
                             </group>
                             <group>
                                 <field name="partage" />
+                                <field name="taille" />
+                                <field name="nb_modifs" />
                                 <field name="heure_debut" />
                                 <field name="heure_fin" />
                                 <field name="temps" />
-                                <field name="taille" />
                             </group>
                         </group>
                         <group>
@@ -42,10 +43,11 @@
                     <field name="utilisateur_id" />
                     <field name="mail" />
                     <field name="partage" />
+                    <field name="taille" />
+                    <field name="nb_modifs" />
                     <field name="heure_debut" />
                     <field name="heure_fin" />
                     <field name="temps" />
-                    <field name="taille" />
                     <field name="resultat" />
                 </tree>
             </field>

@@ -50,7 +50,7 @@
                                 <field name="action" />
                                 <field name="date_creation" />
                                 <field name="date_prevue_debut" />
-                                <field name="tps_prevu" />
+                                <field name="tps_prevu" widget="float_time"/>
                                 <field name="nb_actions_semaine" />
                             </group>
                             <group string="Filtre création actions">
@@ -98,7 +98,7 @@
                     <field name="action" />
                     <field name="date_creation" />
                     <field name="date_prevue_debut" />
-                    <field name="tps_prevu"          sum="Total"/>
+                    <field name="tps_prevu" widget="float_time" sum="Total"/>
                     <field name="nb_actions_semaine" />
                     <field name="nb_actions_restant" sum="Total"/>
                     <field name="date_prevue" />

@@ -15,10 +15,25 @@ class is_action(models.Model):
     _description = "Actions"
     _order='date_creation desc, name'
 
+
+    @api.depends('ordinateur_id','utilisateur_id')
+    def _compute(self):
+        for obj in self:
+            if obj.utilisateur_id.service_id.id:
+                obj.service_id=obj.utilisateur_id.service_id.id
+            if obj.utilisateur_id.site_id.id:
+                obj.site_id=obj.utilisateur_id.site_id.id
+            else:
+                if obj.ordinateur_id.site_id.id:
+                    obj.site_id=obj.ordinateur_id.site_id.id
+
+
     action_globale_id = fields.Many2one('is.action.globale', 'Action globale')
     name              = fields.Char('Action', required=True)
     ordinateur_id     = fields.Many2one('is.ordinateur', 'Ordinateur')
     utilisateur_id    = fields.Many2one('is.utilisateur', 'Utilisateur')
+    site_id           = fields.Many2one('is.site'   , 'Site'   , compute='_compute', readonly=True, store=True)
+    service_id        = fields.Many2one('is.service', 'Service', compute='_compute', readonly=True, store=True)
     mail              = fields.Char('Mail', related='utilisateur_id.mail', readonly=True)
     date_creation     = fields.Date('Date création', required=True)
     date_prevue       = fields.Date('Date prévue'  , required=True)
@@ -55,7 +70,28 @@ class is_action(models.Model):
         return res
 
 
+    @api.multi
+    def ordinateur_id_on_change(self,ordinateur_id,utilisateur_id):
+        res={}
+        if ordinateur_id:
+            res['value']={}
+            ordinateur = self.env['is.ordinateur'].browse(ordinateur_id)
+            utilisateur_id=ordinateur.utilisateur_id.id
+            if utilisateur_id:
+                res['value']['utilisateur_id']=utilisateur_id
+        return res
 
+
+    @api.multi
+    def utilisateur_id_on_change(self,ordinateur_id,utilisateur_id):
+        print 'utilisateur_id_on_change : ',ordinateur_id,utilisateur_id
+        res={}
+        if utilisateur_id and ordinateur_id==False:
+            res['value']={}
+            ordinateurs = self.env['is.ordinateur'].search([('utilisateur_id','=',utilisateur_id)])
+            for ordinateur in ordinateurs:
+                res['value']['ordinateur_id']=ordinateur.id
+        return res
 
 
 

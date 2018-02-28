@@ -105,13 +105,17 @@
             <field name="name">is_ordinateur_search_view</field>
             <field name="model">is.ordinateur</field>
             <field name="arch" type="xml">
-            <search>
-                <field name="site_id" />
-                <field name="name" />
-                <field name="service_id" />
-                <field name="utilisateur_id" />
-                <field name="commentaire" />
-            </search>
+                <search>
+                    <field name="site_id" />
+                    <field name="name" />
+                    <field name="service_id" />
+                    <field name="utilisateur_id" />
+                    <field name="commentaire" />
+                    <group expand="0" string="Regrouper par...">
+                        <filter string="Site"    context="{'group_by':'site_id'}"/>
+                        <filter string="Service" context="{'group_by':'service_id'}"/>
+                    </group>
+                </search>
             </field>
         </record>
         <record id="is_ordinateur_action" model="ir.actions.act_window">

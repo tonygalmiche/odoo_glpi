@@ -8,7 +8,8 @@ from math import *
 
 
 def _date_creation():
-    now  = datetime.date.today()
+    #now  = datetime.date.today()
+    now=datetime.now()
     return now.strftime('%Y-%m-%d')
 
 

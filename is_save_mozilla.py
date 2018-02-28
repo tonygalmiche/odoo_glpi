@@ -19,6 +19,7 @@ class is_save_mozilla(models.Model):
     partage         = fields.Char('Partage')
     mail            = fields.Char('Mail')
     taille          = fields.Integer('Taille (Mo)')
+    nb_modifs       = fields.Integer('Nb modifs')
     temps           = fields.Integer('Temps (mn)')
     resultat        = fields.Text('Résultat')
 
