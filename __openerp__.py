@@ -23,6 +23,7 @@ InfoSaône - Module Odoo GLPI
         "is_action_globale_view.xml",
         "is_identifiant_view.xml",
         "is_save_mozilla_view.xml",
+        "res_company_view.xml",
         "menu.xml",
     ], 
     "installable": True,

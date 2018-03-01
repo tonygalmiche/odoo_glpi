@@ -21,7 +21,7 @@ class is_save_mozilla(models.Model):
     nb_modifs       = fields.Integer('Nb modifs')
     heure_debut     = fields.Datetime('Heure début')
     heure_fin       = fields.Datetime('Heure fin')
-    temps           = fields.Integer('Temps (mn)')
+    temps           = fields.Integer('Temps (s)')
     resultat        = fields.Text('Résultat')
 
 
