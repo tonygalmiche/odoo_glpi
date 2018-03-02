@@ -6,6 +6,13 @@
             <field name="model">is.save.mozilla</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <button 
+                            name="mail_anomalie_sauvegarde_action"
+                            string="Anomalies sauvegardes"
+                            type="object"
+                        />
+                    </header>
                     <sheet>
                         <group>
                             <group>
