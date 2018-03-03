@@ -89,18 +89,37 @@
                                     </field>
                                 </group>
                             </page>
+                            <page string="Sauvegardes">
+                                <group>
+                                    <field name="sauvegarde_ids" nolabel="1">
+                                        <tree>
+                                            <button string="Accèder à la sauvegarde" name="acceder_sauvegarde" type="object" icon="gtk-zoom-in" />
+                                            <field name="date" />
+                                            <field name="partage" />
+                                            <field name="taille" />
+                                            <field name="nb_modifs" />
+                                            <field name="temps" />
+                                            <field name="resultat" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
                             <page string="GLPI">
                                 <group>
                                     <group>
                                         <field name="glpi_name"/>
+                                        <field name="glpi_remote_addr"/>
                                         <field name="glpi_operatingsystems"/>
                                         <field name="glpi_contact"/>
+                                        <field name="glpi_winowner"/>
                                         <field name="glpi_serial"/>
                                         <field name="glpi_os_license_number"/>
                                         <field name="glpi_os_licenseid"/>
                                     </group>
                                     <group>
                                         <field name="glpi_date_mod"/>
+                                        <field name="glpi_bios_date"/>
+                                        <field name="glpi_installationdate" />
                                     </group>
                                 </group>
                             </page>
@@ -117,12 +136,14 @@
                 <tree>
                     <field name="site_id" />
                     <field name="name" />
+                    <field name="glpi_remote_addr"/>
                     <field name="service_id" />
                     <field name="utilisateur_id" />
                     <field name="date_debut" />
-                    <field name="glpi_date_mod" />
+                    <field name="glpi_bios_date" />
+                    <field name="glpi_installationdate" />
                     <field name="glpi_operatingsystems"/>
-                    <!--<field name="commentaire" />-->
+                    <field name="glpi_winowner"/>
                 </tree>
             </field>
         </record>
@@ -150,6 +171,7 @@
             <field name="res_model">is.ordinateur</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="limit">200</field>
         </record>
 
 

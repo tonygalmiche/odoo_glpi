@@ -29,6 +29,7 @@ class is_ordinateur(models.Model):
     partage_ids    = fields.Many2many('is.partage' , 'is_ordinateur_partage_rel' , 'ordinateur_id','partage_id' , string="Partages", help=u"Ce champ est utilisé par le programme de sauvegarde des messageries" )
     commentaire    = fields.Text('Commentaire')
     action_ids     = fields.One2many('is.action', 'ordinateur_id', u'Actions', readonly=True)
+    sauvegarde_ids = fields.One2many('is.save.mozilla', 'ordinateur_id', u'Sauvegardes', readonly=True)
     active         = fields.Boolean('Actif', default=True)
 
     glpi_name              = fields.Char('Nom du poste' , readonly=True)
@@ -38,6 +39,18 @@ class is_ordinateur(models.Model):
     glpi_os_licenseid      = fields.Char('Licence OS id', readonly=True)
     glpi_date_mod          = fields.Datetime('Date GLPI', readonly=True)
     glpi_operatingsystems  = fields.Char('Système'      , readonly=True)
+
+    glpi_bios_date         = fields.Date('Date du bios', readonly=True)
+    glpi_installationdate  = fields.Date("Date d'installation", readonly=True)
+    glpi_remote_addr       = fields.Char('Adresse IP'   , readonly=True)
+    glpi_winowner          = fields.Char('Administrateur'  , readonly=True)
+
+
+
+#winowner 	wincompany 	last_fusioninventory_update 	remote_addr 	plugin_fusioninventory_computerarchs_id 	serialized_inventory 	is_entitylocked 	oscomment
+#	8 	8 	2014-12-18 00:00:00 	A10 	  	1 	2015-02-18 16:17:53 	utilisateur 	Microsoft 	2018-03-02 13:55:10 	192.0.0.206 	1 	[BLOB - 11,6Kio]	0 	NULL
+# localhost - glpi - glpi_plugin_fusioninventory_inventorycomputercomputers 
+
 
 
     @api.multi
@@ -67,9 +80,14 @@ class is_ordinateur(models.Model):
                     c.os_licenseid,
                     c.date_mod,
                     os.name,
-                    ossp.name
+                    ossp.name,
+                    f.bios_date,
+                    f.operatingsystem_installationdate,
+                    f.remote_addr,
+                    f.winowner
                 FROM glpi_computers c left outer join glpi_operatingsystems os on c.operatingsystems_id=os.id
                                       left outer join glpi_operatingsystemservicepacks ossp on c.operatingsystemversions_id=ossp.id
+                                      left outer join glpi_plugin_fusioninventory_inventorycomputercomputers f on f.computers_id=c.id
                 WHERE c.name='"""+obj.name+"""'
             """
             cur.execute(SQL)
@@ -81,7 +99,12 @@ class is_ordinateur(models.Model):
                 obj.glpi_os_licenseid      = row[4]
                 obj.glpi_date_mod          = row[5]
                 obj.glpi_operatingsystems  = (row[6] or '')+' '+(row[7] or '')
-
+                if row[8]:
+                    obj.glpi_bios_date     = row[8].strftime('%Y-%m-%d')  
+                if row[9]:
+                    obj.glpi_installationdate = row[9].strftime('%Y-%m-%d')  
+                obj.glpi_remote_addr       = row[10]
+                obj.glpi_winowner          = row[11]
 
     def actualiser_glpi_scheduler_action(self, cr, uid, use_new_cursor=False, company_id = False, context=None):
         self.actualiser_glpi_scheduler(cr, uid, context)

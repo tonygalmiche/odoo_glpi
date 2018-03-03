@@ -37,7 +37,7 @@
             <field name="model">is.action</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree colors="red:date_prevue &lt; current_date and date_realisee==False; grey:date_realisee not null;" >
                     <field name="action_globale_id"  widget="many2one_clickable"/>
                     <field name="name" />
                     <field name="ordinateur_id"      widget="many2one_clickable"/>

@@ -162,6 +162,7 @@
             <field name="res_model">is.utilisateur</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="limit">200</field>
         </record>
     </data>
 </openerp>
