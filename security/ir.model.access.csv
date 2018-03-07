@@ -8,3 +8,6 @@ access_is_service,access_is_service,model_is_service,base.group_user,1,0,0,0
 access_is_identifiant,access_is_identifiant,model_is_identifiant,base.group_user,1,1,1,0
 access_is_save_mozilla,access_is_save_mozilla,model_is_save_mozilla,base.group_user,1,0,0,0
 access_is_partage,access_is_partage,model_is_partage,base.group_user,1,0,0,0
+access_is_bureau,access_is_bureau,model_is_bureau,base.group_user,1,0,0,0
+access_is_type_ordinateur,access_is_type_ordinateur,model_is_type_ordinateur,base.group_user,1,0,0,0
+

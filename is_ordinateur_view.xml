@@ -44,6 +44,96 @@
         </record>
 
 
+        <!-- Bureau -->
+        <record id="is_bureau_form_view" model="ir.ui.view">
+            <field name="name">is_bureau_from_view</field>
+            <field name="model">is.bureau</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="commentaire" />
+                        </group>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_bureau_tree_view">
+            <field name="name">is_bureau_tree_view</field>
+            <field name="model">is.bureau</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="commentaire" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_bureau_search_view" model="ir.ui.view">
+            <field name="name">is_bureau_search_view</field>
+            <field name="model">is.bureau</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="commentaire" />
+                </search>
+            </field>
+        </record>
+        <record id="is_bureau_action" model="ir.actions.act_window">
+            <field name="name">Bureau</field>
+            <field name="res_model">is.bureau</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <!-- Type d'ordinateur -->
+        <record id="is_type_ordinateur_form_view" model="ir.ui.view">
+            <field name="name">is_type_ordinateur_from_view</field>
+            <field name="model">is.type.ordinateur</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="commentaire" />
+                        </group>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_type_ordinateur_tree_view">
+            <field name="name">is_type_ordinateur_tree_view</field>
+            <field name="model">is.type.ordinateur</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="commentaire" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_type_ordinateur_search_view" model="ir.ui.view">
+            <field name="name">is_type_ordinateur_search_view</field>
+            <field name="model">is.type.ordinateur</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="commentaire" />
+                </search>
+            </field>
+        </record>
+        <record id="is_type_ordinateur_action" model="ir.actions.act_window">
+            <field name="name">Type d'ordinateur</field>
+            <field name="res_model">is.type.ordinateur</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Ordinateur -->
         <record id="is_ordinateur_form_view" model="ir.ui.view">
             <field name="name">is_ordinateur_from_view</field>
             <field name="model">is.ordinateur</field>
@@ -61,6 +151,8 @@
                             <group>
                                 <field name="site_id" />
                                 <field name="name" />
+                                <field name="type_ordinateur_id" />
+                                <field name="bureau_id" />
                                 <field name="service_id" />
                                 <field name="utilisateur_id" />
                                 <field name="date_debut" />
@@ -136,7 +228,9 @@
                 <tree>
                     <field name="site_id" />
                     <field name="name" />
+                    <field name="type_ordinateur_id" />
                     <field name="glpi_remote_addr"/>
+                    <field name="bureau_id" />
                     <field name="service_id" />
                     <field name="utilisateur_id" />
                     <field name="date_debut" />
@@ -144,6 +238,7 @@
                     <field name="glpi_installationdate" />
                     <field name="glpi_operatingsystems"/>
                     <field name="glpi_winowner"/>
+                    <field name="commentaire" invisible="context.get('commentaire',True)"/>
                 </tree>
             </field>
         </record>
@@ -154,14 +249,21 @@
                 <search>
                     <field name="site_id" />
                     <field name="name" />
+                    <field name="type_ordinateur_id" />
+                    <field name="bureau_id" />
                     <field name="service_id" />
                     <field name="utilisateur_id" />
                     <field name="glpi_operatingsystems"/>
                     <field name="commentaire" />
                     <group expand="0" string="Regrouper par...">
-                        <filter string="Site"    context="{'group_by':'site_id'}"/>
-                        <filter string="Service" context="{'group_by':'service_id'}"/>
-                        <filter string="Système" context="{'group_by':'glpi_operatingsystems'}"/>
+                        <filter string="Site"              context="{'group_by':'site_id'}"/>
+                        <filter string="Type d'ordinateur" context="{'group_by':'type_ordinateur_id'}"/>
+                        <filter string="Bureau"            context="{'group_by':'bureau_id'}"/>
+                        <filter string="Service"           context="{'group_by':'service_id'}"/>
+                        <filter string="Système"           context="{'group_by':'glpi_operatingsystems'}"/>
+                    </group>
+                    <group expand="0" string="Afficher...">
+                        <filter name="commentaire_filter" filter_domain="[]" context="{'commentaire':False}" string="Commentaire"/>
                     </group>
                 </search>
             </field>

@@ -16,21 +16,41 @@ class is_partage(models.Model):
     name = fields.Char('Partage', required=True)
 
 
+class is_bureau(models.Model):
+    _name = "is.bureau"
+    _description = "Bureau"
+    _order='name'
+
+    name            = fields.Char('Bureau', required=True)
+    commentaire     = fields.Text('Commentaire')
+
+
+class is_type_ordinateur(models.Model):
+    _name = "is.type.ordinateur"
+    _description = "Type d'ordinateur"
+    _order='name'
+
+    name            = fields.Char("Type d'ordinateur", required=True)
+    commentaire     = fields.Text('Commentaire')
+
+
 class is_ordinateur(models.Model):
     _name = "is.ordinateur"
     _description = "Ordinateurs"
     _order='name'
 
-    site_id        = fields.Many2one('is.site', 'Site', required=True)
-    name           = fields.Char('Nom du poste', required=True)
-    service_id     = fields.Many2one('is.service', 'Service')
-    utilisateur_id = fields.Many2one('is.utilisateur', 'Utilisateur')
-    date_debut     = fields.Date('Date de mise en service')
-    partage_ids    = fields.Many2many('is.partage' , 'is_ordinateur_partage_rel' , 'ordinateur_id','partage_id' , string="Partages", help=u"Ce champ est utilisé par le programme de sauvegarde des messageries" )
-    commentaire    = fields.Text('Commentaire')
-    action_ids     = fields.One2many('is.action', 'ordinateur_id', u'Actions', readonly=True)
-    sauvegarde_ids = fields.One2many('is.save.mozilla', 'ordinateur_id', u'Sauvegardes', readonly=True)
-    active         = fields.Boolean('Actif', default=True)
+    site_id            = fields.Many2one('is.site', 'Site', required=True)
+    name               = fields.Char('Nom du poste', required=True)
+    type_ordinateur_id = fields.Many2one('is.type.ordinateur', "Type d'ordinateur")
+    bureau_id          = fields.Many2one('is.bureau', 'Bureau')
+    service_id         = fields.Many2one('is.service', 'Service')
+    utilisateur_id     = fields.Many2one('is.utilisateur', 'Utilisateur')
+    date_debut         = fields.Date('Date de mise en service')
+    partage_ids        = fields.Many2many('is.partage' , 'is_ordinateur_partage_rel' , 'ordinateur_id','partage_id' , string="Partages", help=u"Ce champ est utilisé par le programme de sauvegarde des messageries" )
+    commentaire        = fields.Text('Commentaire')
+    action_ids         = fields.One2many('is.action', 'ordinateur_id', u'Actions', readonly=True)
+    sauvegarde_ids     = fields.One2many('is.save.mozilla', 'ordinateur_id', u'Sauvegardes', readonly=True)
+    active             = fields.Boolean('Actif', default=True)
 
     glpi_name              = fields.Char('Nom du poste' , readonly=True)
     glpi_contact           = fields.Char('Utilisateur'  , readonly=True)

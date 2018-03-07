@@ -61,6 +61,13 @@ class is_action(models.Model):
             }
 
 
+    @api.model
+    def create(self, vals):
+        obj = super(is_action, self).create(vals)
+        obj.action_globale_id._compute_avancement()
+        return obj
+
+
     @api.multi
     def write(self, vals):
         res=super(is_action, self).write(vals)

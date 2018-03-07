@@ -30,6 +30,7 @@ class is_action_globale(models.Model):
             obj.avancement=avancement
             obj.nb_actions=nb2
             obj.nb_actions_restant=nb2-nb1
+            obj.avancement_txt=str(nb1)+'/'+str(nb2)
 
 
     name               = fields.Char('N°action', readonly=True)
@@ -42,10 +43,12 @@ class is_action_globale(models.Model):
     nb_actions_restant = fields.Integer("Nombre d'actions restant", readonly=True)
     date_prevue        = fields.Date('Date prévue de fin', readonly=True)
     date_realisee      = fields.Date('Date réalisée')
+    avancement_txt     = fields.Char("Avancement"  , readonly=True, compute='_compute_avancement', store=True)
     avancement         = fields.Float("% avancement", readonly=True, compute='_compute_avancement', store=True)
     commentaire        = fields.Text('Commentaire')
     filtre_sur         = fields.Selection([('utilisateur', u'Utilisateur'),('ordinateur', u'Ordinateur')], u"Filtre sur", required=True)
     site_id            = fields.Many2one('is.site', 'Site')
+    type_ordinateur_id = fields.Many2one('is.type.ordinateur', "Type d'ordinateur")
     service_id         = fields.Many2one('is.service', 'Service')
     utilisateur_ids    = fields.Many2many('is.utilisateur', 'is_action_globale_utilisateur_rel', 'action_globale_id','utilisateur_id', string="Utilisateurs")
     ordinateur_ids     = fields.Many2many('is.ordinateur' , 'is_action_globale_ordinateur_rel' , 'action_globale_id','ordinateur_id' , string="Ordinateurs" )
@@ -83,9 +86,11 @@ class is_action_globale(models.Model):
         for obj in self:
             filtre=[]
             if obj.site_id.id:
-                filtre.append(('site_id'       ,'=' , obj.site_id.id))
+                filtre.append(('site_id'           ,'=', obj.site_id.id))
             if obj.service_id.id:
-                filtre.append(('service_id'       ,'=' , obj.service_id.id))
+                filtre.append(('service_id'        ,'=', obj.service_id.id))
+            if obj.type_ordinateur_id.id:
+                filtre.append(('type_ordinateur_id','=', obj.type_ordinateur_id.id))
             if len(obj.utilisateur_ids)>0:
                 ids=[]
                 for utilisateur in obj.utilisateur_ids:

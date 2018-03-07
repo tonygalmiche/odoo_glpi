@@ -73,7 +73,7 @@
                     <filter string="Fait"         name="fait"         domain="[('date_realisee','!=',False)]"/>
                     <filter string="Fait ce jour" name="fait_ce_jour" domain="[('date_realisee','=',context_today().strftime('%Y-%m-%d'))]"/>
                     <filter string="Fait hier"    name="fait_hier"    domain="[('date_realisee','=',(context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))]"/>
-                    <filter string="A Faire"      name="fait"         domain="[('date_realisee','=',False)]"/>
+                    <filter string="A Faire"      name="a_faire"      domain="[('date_realisee','=',False)]"/>
                     <group expand="0" string="Regrouper par...">
                         <filter string="Action globale"   context="{'group_by':'action_globale_id'}"/>
                         <filter string="Ordinateur"       context="{'group_by':'ordinateur_id'}"/>
@@ -111,6 +111,7 @@
             <field name="res_model">is.action</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,graph</field>
+            <field name="context">{'search_default_a_faire':1}</field>
         </record>
 
 
