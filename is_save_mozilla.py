@@ -74,7 +74,7 @@ class is_save_mozilla(models.Model):
                 if row.nb_modifs==0:
                     nb_modifs_color='orange'
                 temps_color='white'
-                if row.temps>=600:
+                if row.temps>=900:
                     temps_color='orange'
 
                 resultat_color='white'
@@ -130,6 +130,94 @@ class is_save_mozilla(models.Model):
             email_id=self.env['mail.mail'].create(email_vals)
             self.env['mail.mail'].send(email_id)
             _logger.info(subject)
+
+
+
+
+    @api.multi
+    def mail_anomalie_tps_sauvegarde_action(self):
+        for obj in self:
+            filtre=[
+                ('date','=',datetime.date.today()),
+                ('utilisateur_id.site_id.name','=','Gray'),
+                ('partage','=','Thunderbird'),
+                ('resultat','=','OK'),
+                ('nb_modifs','>',0),
+                ('temps','>',900),
+            ]
+            rows  = self.env['is.save.mozilla'].search(filtre, order='temps desc')
+            html=u"""
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Utilisateur</th>
+                            <th>Début</th>
+                            <th>Fin</th>
+                            <th>Durée (mn)</th>
+                            <th>Taille (go)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            """
+            email_to=[]
+            for row in rows:
+                email_to.append(row.utilisateur_id.name+u' <'+row.utilisateur_id.mail+u'>')
+                html+=u"""
+                    <tr>
+                        <td style="text-align:left"  >"""+row.utilisateur_id.name+"""</td>
+                        <td style="text-align:center">"""+utc2local(row.heure_debut)+"""</td>
+                        <td style="text-align:center">"""+utc2local(row.heure_fin)+"""</td>
+                        <td style="text-align:right;">"""+"{:10.1f}".format(row.temps/60.0)+"""</td>
+                        <td style="text-align:right" >"""+"{:10.2f}".format(row.taille/1024.0)+"""</td>
+                    </tr>
+                """
+            html+="</tbody></table>"
+            user  = self.env['res.users'].browse(self._uid)
+            email_cc=[]
+            email_cc.append(user.name+u' <'+user.email+u'>')
+            subject=u"Temps de sauvegarde de Thunderbird >15mn du "+str(obj.date)
+            body_html=u"""
+                <html>
+                    <head>
+                        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+                        <style>
+                            table {
+
+                                border:1px solid black;
+                                width:1024px;
+                                border-collapse:collapse;
+                            }
+
+                            td,th { 
+                                border:1px solid black;
+                                padding:0.5em;
+                                margin:0.5em;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <p>Bonjour,</p>
+                        <p>Le temps de sauvegarde de votre messagerie est supérieure à 15mn.</p>
+                        <p>Pour que les messageries de tout le monde soient sauvegardées pendant la journée, il est important de ne pas dépasser 15mn.</p>
+                        <p>Pour cela, il faut réduire la taille de votre messagerie et/ou mieux organiser son arborescence.</p>
+                        <p>Merci de voir avec le service informatique pour plus d'informations ou pour vous aider à réduire ce temps.</p>
+                        <br>
+                        """+html+"""
+                    </body>
+                </html>
+            """
+            email_vals={
+                'subject'       : subject,
+                'email_to'      : ';'.join(email_to), 
+                'email_cc'      : ';'.join(email_cc),
+                'email_from'    : "robot@plastigray.com", 
+                'body_html'     : body_html.encode('utf-8'), 
+            }
+            email_id=self.env['mail.mail'].create(email_vals)
+            self.env['mail.mail'].send(email_id)
+            _logger.info(subject)
+
+
 
 
 def utc2local(date):

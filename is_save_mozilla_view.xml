@@ -12,6 +12,11 @@
                             string="Anomalies sauvegardes"
                             type="object"
                         />
+                        <button 
+                            name="mail_anomalie_tps_sauvegarde_action"
+                            string="Anomalies tps sauvegardes"
+                            type="object"
+                        />
                     </header>
                     <sheet>
                         <group>
