@@ -159,6 +159,7 @@
                             </group>
                             <group>
                                 <field name="partage_ids"  widget="many2many_tags"/>
+                                <field name="partage_nb" invisible="1"/>
                                 <field name="active" />
                             </group>
                         </group>
@@ -166,7 +167,7 @@
                             <field name="commentaire" />
                         </group>
                         <notebook>
-                            <page string="Actions">
+                            <page string="Actions" attrs="{'invisible': [('action_ids', '=', [])]}">
                                 <group>
                                     <field name="action_ids" nolabel="1">
                                         <tree>
@@ -181,7 +182,7 @@
                                     </field>
                                 </group>
                             </page>
-                            <page string="Sauvegardes">
+                            <page string="Sauvegardes" attrs="{'invisible': [('partage_nb', '=', 0)]}">
                                 <group>
                                     <field name="sauvegarde_ids" nolabel="1">
                                         <tree>
@@ -196,7 +197,7 @@
                                     </field>
                                 </group>
                             </page>
-                            <page string="GLPI">
+                            <page string="GLPI" attrs="{'invisible': [('glpi_name', '=', False)]}">
                                 <group>
                                     <group>
                                         <field name="glpi_name"/>

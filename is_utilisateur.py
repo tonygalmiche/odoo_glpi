@@ -10,8 +10,9 @@ class is_site(models.Model):
     _description = "Site"
     _order='name'
 
-    name            = fields.Char('Site', required=True)
-    code            = fields.Char('Code', required=True)
+    name             = fields.Char('Site', required=True)
+    code             = fields.Char('Code', required=True)
+    dest_mozilla_ids = fields.Many2many('is.utilisateur', 'is_site_utilisateur_rel', 'ris_site_id','utilisateur_id', string="Destinataires des anomalies des sauvegardes de Mozilla")
 
 
 class is_service(models.Model):

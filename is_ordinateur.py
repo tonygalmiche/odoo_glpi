@@ -39,6 +39,13 @@ class is_ordinateur(models.Model):
     _description = "Ordinateurs"
     _order='name'
 
+
+    @api.depends('partage_ids')
+    def _compute(self):
+        for obj in self:
+            obj.partage_nb=len(obj.partage_ids)
+
+
     site_id            = fields.Many2one('is.site', 'Site', required=True)
     name               = fields.Char('Nom du poste', required=True)
     type_ordinateur_id = fields.Many2one('is.type.ordinateur', "Type d'ordinateur")
@@ -47,6 +54,7 @@ class is_ordinateur(models.Model):
     utilisateur_id     = fields.Many2one('is.utilisateur', 'Utilisateur')
     date_debut         = fields.Date('Date de mise en service')
     partage_ids        = fields.Many2many('is.partage' , 'is_ordinateur_partage_rel' , 'ordinateur_id','partage_id' , string="Partages", help=u"Ce champ est utilisé par le programme de sauvegarde des messageries" )
+    partage_nb         = fields.Integer('Nombre de partages', compute='_compute', readonly=True, store=False)
     commentaire        = fields.Text('Commentaire')
     action_ids         = fields.One2many('is.action', 'ordinateur_id', u'Actions', readonly=True)
     sauvegarde_ids     = fields.One2many('is.save.mozilla', 'ordinateur_id', u'Sauvegardes', readonly=True)
@@ -64,12 +72,6 @@ class is_ordinateur(models.Model):
     glpi_installationdate  = fields.Date("Date d'installation", readonly=True)
     glpi_remote_addr       = fields.Char('Adresse IP'   , readonly=True)
     glpi_winowner          = fields.Char('Administrateur'  , readonly=True)
-
-
-
-#winowner 	wincompany 	last_fusioninventory_update 	remote_addr 	plugin_fusioninventory_computerarchs_id 	serialized_inventory 	is_entitylocked 	oscomment
-#	8 	8 	2014-12-18 00:00:00 	A10 	  	1 	2015-02-18 16:17:53 	utilisateur 	Microsoft 	2018-03-02 13:55:10 	192.0.0.206 	1 	[BLOB - 11,6Kio]	0 	NULL
-# localhost - glpi - glpi_plugin_fusioninventory_inventorycomputercomputers 
 
 
 

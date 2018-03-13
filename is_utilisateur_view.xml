@@ -12,6 +12,7 @@
                         <group>
                             <field name="name" />
                             <field name="code" />
+                            <field name="dest_mozilla_ids" widget="many2many_tags"/>
                         </group>
                     </sheet>
                </form>
@@ -25,6 +26,7 @@
                 <tree>
                     <field name="name" />
                     <field name="code" />
+                    <field name="dest_mozilla_ids"/>
                 </tree>
             </field>
         </record>
