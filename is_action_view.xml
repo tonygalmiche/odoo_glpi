@@ -104,8 +104,6 @@
         </record>
 
 
-
-
         <record id="is_action_action" model="ir.actions.act_window">
             <field name="name">Actions</field>
             <field name="res_model">is.action</field>
@@ -115,9 +113,18 @@
         </record>
 
 
-
-
-
+        <!-- Actualiser service -->
+        <record id="actualiser_service_action_server" model="ir.actions.server">
+             <field name="name">Actualiser service</field>
+            <field name="model_id" ref="model_is_action"/>
+            <field name="code">action = self.actualiser_service_action(cr, uid, context.get('active_ids', []), context=context)</field>
+        </record>
+        <record id="actualiser_service_action_ir_value" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'is.action'" name="model"/>
+            <field name="name">Actualiser service</field>
+            <field eval="'ir.actions.server,%d'%actualiser_service_action_server" name="value"/>
+        </record>
 
 
 

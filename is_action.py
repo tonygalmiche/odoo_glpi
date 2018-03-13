@@ -49,6 +49,18 @@ class is_action(models.Model):
 
 
     @api.multi
+    def actualiser_service_action(self):
+        for obj in self:
+            if obj.service_id.id==False:
+                if obj.utilisateur_id.id!=False:
+                    service_id=obj.utilisateur_id.service_id.id
+                else:
+                    service_id=obj.ordinateur_id.service_id.id
+                if service_id:
+                    obj.service_id=service_id
+            
+
+    @api.multi
     def acceder_action(self):
         for obj in self:
             return {
@@ -91,7 +103,6 @@ class is_action(models.Model):
 
     @api.multi
     def utilisateur_id_on_change(self,ordinateur_id,utilisateur_id):
-        print 'utilisateur_id_on_change : ',ordinateur_id,utilisateur_id
         res={}
         if utilisateur_id and ordinateur_id==False:
             res['value']={}
