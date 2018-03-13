@@ -118,6 +118,20 @@
         </record>
 
 
+        <!-- Envoi en automatique des anomalies de temps de sauvegarde par mail -->
+        <record forcecreate="True" id="mail_anomalie_tps_sauvegarde_scheduler_action" model="ir.cron">
+            <field name="name">Envoi en automatique des anomalies de temps de sauvegarde par mail</field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field> <!-- minutes, hours ou days -->
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'is.save.mozilla'" name="model"/>
+            <field eval="'mail_anomalie_tps_sauvegarde_scheduler_action'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+
 
 
     </data>
