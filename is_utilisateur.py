@@ -29,7 +29,10 @@ class is_utilisateur(models.Model):
     _name = "is.utilisateur"
     _description = "Utilisateurs"
     _order='site_id,name'
-    _sql_constraints = [('name_uniq','UNIQUE(name)', 'Ce code existe déjà')] 
+    _sql_constraints = [
+        ('name_uniq','UNIQUE(name)'  , 'Ce nom existe déjà'),
+        ('login_uniq','UNIQUE(login)', 'Ce login existe déjà'),
+    ] 
 
     site_id         = fields.Many2one('is.site', 'Site', required=True)
     name            = fields.Char('Prénom Nom', required=True)
