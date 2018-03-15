@@ -14,10 +14,11 @@ class is_suivi_sauvegarde(models.Model):
     _order='date desc, ordinateur_id'
 
     date            = fields.Date('Date de vérification de la sauvegarde', required=True)
-    site_id         = fields.Many2one('is.site', 'Site', required=True)
     ordinateur_id   = fields.Many2one('is.ordinateur', 'Serveur', required=True)
+    site_id         = fields.Many2one('is.site', 'Site', related='ordinateur_id.site_id', readonly=True)
     resultat        = fields.Char('Résultat', required=True)
     logs            = fields.Text('Analyse des logs')
+
 
     _defaults = {
         'date': lambda *a: _date_creation(),
@@ -32,4 +33,15 @@ class is_suivi_sauvegarde(models.Model):
         return res
 
 
+    @api.multi
+    def acceder_suivi_sauvegarde(self):
+        for obj in self:
+            return {
+                'name': u'Suivi sauvegarde '+obj.ordinateur_id.name or '',
+                'view_mode': 'form,tree',
+                'view_type': 'form',
+                'res_model': 'is.suivi.sauvegarde',
+                'res_id': obj.id,
+                'type': 'ir.actions.act_window',
+            }
 

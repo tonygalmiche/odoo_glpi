@@ -9,8 +9,8 @@
                     <sheet>
                         <group>
                             <field name="date" />
-                            <field name="site_id" />
                             <field name="ordinateur_id" />
+                            <field name="site_id" />
                             <field name="resultat" />
                             <field name="logs" />
                         </group>
@@ -25,8 +25,8 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="date" />
-                    <field name="site_id" />
                     <field name="ordinateur_id" />
+                    <field name="site_id" />
                     <field name="resultat" />
                 </tree>
             </field>
@@ -37,8 +37,8 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="date" />
-                    <field name="site_id" />
                     <field name="ordinateur_id" />
+                    <field name="site_id" />
                     <field name="resultat" />
                 </search>
             </field>

@@ -159,7 +159,8 @@
                             </group>
                             <group>
                                 <field name="partage_ids"  widget="many2many_tags"/>
-                                <field name="partage_nb" invisible="1"/>
+                                <field name="partage_nb"          invisible="1"/>
+                                <field name="suivi_sauvegarde_nb" invisible="1"/>
                                 <field name="active" />
                             </group>
                         </group>
@@ -182,7 +183,7 @@
                                     </field>
                                 </group>
                             </page>
-                            <page string="Sauvegardes" attrs="{'invisible': [('partage_nb', '=', 0)]}">
+                            <page string="Sauvegardes Mozilla" attrs="{'invisible': [('partage_nb', '=', 0)]}">
                                 <group>
                                     <field name="sauvegarde_ids" nolabel="1">
                                         <tree>
@@ -192,6 +193,17 @@
                                             <field name="taille" />
                                             <field name="nb_modifs" />
                                             <field name="temps" />
+                                            <field name="resultat" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Suivi des sauvegardes" attrs="{'invisible': [('suivi_sauvegarde_nb', '=', 0)]}">
+                                <group>
+                                    <field name="suivi_sauvegarde_ids" nolabel="1">
+                                        <tree>
+                                            <button string="Accèder au suivi" name="acceder_suivi_sauvegarde" type="object" icon="gtk-zoom-in" />
+                                            <field name="date" />
                                             <field name="resultat" />
                                         </tree>
                                     </field>

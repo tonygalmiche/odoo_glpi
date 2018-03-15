@@ -19,6 +19,7 @@ class is_service(models.Model):
     _name = "is.service"
     _description = "Service"
     _order='name'
+    _sql_constraints = [('name_uniq','UNIQUE(name)', 'Ce code existe déjà')] 
 
     name            = fields.Char('Service', required=True)
     commentaire     = fields.Text('Commentaire')
@@ -28,6 +29,7 @@ class is_utilisateur(models.Model):
     _name = "is.utilisateur"
     _description = "Utilisateurs"
     _order='site_id,name'
+    _sql_constraints = [('name_uniq','UNIQUE(name)', 'Ce code existe déjà')] 
 
     site_id         = fields.Many2one('is.site', 'Site', required=True)
     name            = fields.Char('Prénom Nom', required=True)
