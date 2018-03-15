@@ -7,5 +7,6 @@ import is_action_globale
 import is_identifiant
 import is_save_mozilla
 import res_company
+import is_suivi_sauvegarde
 
 
