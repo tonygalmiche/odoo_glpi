@@ -15,6 +15,7 @@
         <menuitem id="is_sauvegarde_menu"        sequence="30" name="Sauvegardes"           parent="is_glpi_main_menu"/>
         <menuitem id="is_suivi_sauvegarde_menu"  sequence="10" name="Suivi des sauvegardes" parent="is_sauvegarde_menu" action="is_suivi_sauvegarde_action" />
         <menuitem id="is_save_mozilla_menu"      sequence="20" name="Sauvegarde Mozilla"    parent="is_sauvegarde_menu" action="is_save_mozilla_action" />
+        <menuitem id="is_save_serveur_menu"      sequence="30" name="Sauvegarde Serveur"    parent="is_sauvegarde_menu" action="is_save_serveur_action" />
 
         <menuitem id="is_tables_menu"            sequence="40" name="Tables"             parent="is_glpi_main_menu"/>
         <menuitem id="is_site_menu"              sequence="10" name="Sites"              parent="is_tables_menu" action="is_site_action" />

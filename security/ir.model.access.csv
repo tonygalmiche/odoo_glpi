@@ -11,4 +11,5 @@ access_is_partage,access_is_partage,model_is_partage,base.group_user,1,0,0,0
 access_is_bureau,access_is_bureau,model_is_bureau,base.group_user,1,1,1,0
 access_is_type_ordinateur,access_is_type_ordinateur,model_is_type_ordinateur,base.group_user,1,0,0,0
 access_is_suivi_sauvegarde,access_is_suivi_sauvegarde,model_is_suivi_sauvegarde,base.group_user,1,1,1,0
+access_is_save_serveur,access_is_save_serveur,model_is_save_serveur,base.group_user,1,0,0,0
 
