@@ -25,6 +25,7 @@ InfoSaône - Module Odoo GLPI
         "is_save_mozilla_view.xml",
         "is_save_serveur_view.xml",
         "is_suivi_sauvegarde_view.xml",
+        "is_equipement_reseau_view.xml",
         "res_company_view.xml",
         "menu.xml",
     ], 

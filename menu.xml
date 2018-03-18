@@ -6,8 +6,9 @@
         <menuitem id="is_glpi_menu"              sequence="10" name="GLPI"               parent="is_glpi_main_menu"/>
         <menuitem id="is_utilisateur_menu"       sequence="10" name="Utilisateurs"       parent="is_glpi_menu" action="is_utilisateur_action" />
         <menuitem id="is_ordinateur_menu"        sequence="20" name="Ordinateurs"        parent="is_glpi_menu" action="is_ordinateur_action" />
-        <menuitem id="is_action_menu"            sequence="30" name="Actions"            parent="is_glpi_menu" action="is_action_action" />
-        <menuitem id="is_actio_globalen_menu"    sequence="40" name="Actions globales"   parent="is_glpi_menu" action="is_action_globale_action" />
+        <menuitem id="is_equipement_reseau_menu" sequence="30" name="Equipement réseau"  parent="is_glpi_menu" action="is_equipement_reseau_action" />
+        <menuitem id="is_action_menu"            sequence="40" name="Actions"            parent="is_glpi_menu" action="is_action_action" />
+        <menuitem id="is_actio_globalen_menu"    sequence="50" name="Actions globales"   parent="is_glpi_menu" action="is_action_globale_action" />
 
         <menuitem id="is_identifiant_main_menu"  sequence="20" name="Identifiants"       parent="is_glpi_main_menu"/>
         <menuitem id="is_identifiant_menu"       sequence="10" name="Identifiants"       parent="is_identifiant_main_menu" action="is_identifiant_action" />
