@@ -76,6 +76,9 @@ class is_ordinateur(models.Model):
     glpi_remote_addr       = fields.Char('Adresse IP'   , readonly=True)
     glpi_winowner          = fields.Char('Administrateur'  , readonly=True)
 
+    net_rpc_users          = fields.Char('net rpc users'   , readonly=True)
+    net_rpc_admins         = fields.Char('net rpc admins'  , readonly=True)
+    net_rpc_partages       = fields.Char('net rpc partages', readonly=True)
 
 
     @api.multi

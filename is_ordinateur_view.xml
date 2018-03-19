@@ -161,7 +161,6 @@
                                 <field name="partage_ids"  widget="many2many_tags"/>
                                 <field name="partage_nb"          invisible="1"/>
                                 <field name="suivi_sauvegarde_nb" invisible="1"/>
-                                <field name="active" />
                             </group>
                         </group>
                         <group>
@@ -228,7 +227,18 @@
                                     </group>
                                 </group>
                             </page>
+
+                            <page string="net rpc" attrs="{'invisible': [('net_rpc_admins', '=', False)]}">
+                                <group>
+                                    <field name="net_rpc_partages" />
+                                    <field name="net_rpc_admins" />
+                                    <field name="net_rpc_users" />
+                                </group>
+                            </page>
                         </notebook>
+                        <group>
+                            <field name="active"/>
+                        </group>
                     </sheet>
                </form>
             </field>
