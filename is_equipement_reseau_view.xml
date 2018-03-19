@@ -13,6 +13,8 @@
                                 <field name="adresse_mac" />
                                 <field name="site_id" />
                                 <field name="ordinateur_id" />
+                                <field name="dhcp_hostname" />
+                                <field name="dhcp_end" />
                             </group>
                             <group>
                                 <field name="date_creation" />
