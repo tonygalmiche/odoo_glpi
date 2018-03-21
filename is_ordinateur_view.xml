@@ -257,6 +257,7 @@
                     <field name="service_id" />
                     <field name="utilisateur_id" />
                     <field name="date_debut" />
+                    <field name="glpi_date_mod"/>
                     <field name="glpi_bios_date" />
                     <field name="glpi_installationdate" />
                     <field name="glpi_operatingsystems"/>
