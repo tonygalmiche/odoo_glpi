@@ -81,7 +81,9 @@
                                     <field name="utilisateur_id" widget="many2one_clickable"/>
                                     <field name="date_creation" />
                                     <field name="date_prevue" />
+                                    <field name="tps_prevu" widget="float_time" sum="Total" />
                                     <field name="date_realisee" />
+                                    <field name="tps_passe" widget="float_time" sum="Total"/>
                                     <field name="commentaire" />
                                 </tree>
                             </field>
