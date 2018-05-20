@@ -10,5 +10,6 @@ import is_save_serveur
 import res_company
 import is_suivi_sauvegarde
 import is_equipement_reseau
+import is_pureftp
 
 

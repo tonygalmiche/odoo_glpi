@@ -12,6 +12,7 @@
 
         <menuitem id="is_identifiant_main_menu"  sequence="20" name="Identifiants"       parent="is_glpi_main_menu"/>
         <menuitem id="is_identifiant_menu"       sequence="10" name="Identifiants"       parent="is_identifiant_main_menu" action="is_identifiant_action" />
+        <menuitem id="is_pureftp_menu"           sequence="20" name="Comptes FTP"        parent="is_identifiant_main_menu" action="is_pureftp_action" />
 
         <menuitem id="is_sauvegarde_menu"        sequence="30" name="Sauvegardes"           parent="is_glpi_main_menu"/>
         <menuitem id="is_suivi_sauvegarde_menu"  sequence="10" name="Suivi des sauvegardes" parent="is_sauvegarde_menu" action="is_suivi_sauvegarde_action" />
