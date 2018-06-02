@@ -65,6 +65,7 @@ class is_save_mozilla(models.Model):
                 <thead>
                     <tr>
                         <th>Utilisateur</th>
+                        <th>Ordinateur</th>
                         <th>Début</th>
                         <th>Fin</th>
                         <th>Durée (mn)</th>
@@ -91,6 +92,7 @@ class is_save_mozilla(models.Model):
             html+=u"""
                 <tr>
                     <td style="text-align:left">"""+row.utilisateur_id.name+"""</td>
+                    <td style="text-align:left">"""+row.ordinateur_id.name+"""</td>
                     <td style="text-align:center">"""+utc2local(row.heure_debut)+"""</td>
                     <td style="text-align:center">"""+utc2local(row.heure_fin)+"""</td>
                     <td style="text-align:right;background-color:"""+temps_color+"""">"""+"{:10.1f}".format(row.temps/60.0)+"""</td>
