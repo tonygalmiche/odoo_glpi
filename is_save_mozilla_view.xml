@@ -94,11 +94,24 @@
                 </search>
             </field>
         </record>
+
+        <record id="is_save_mozilla_graph_view" model="ir.ui.view">
+             <field name="name">is_save_mozilla_graph_view</field>
+            <field name="model">is.save.mozilla</field>
+             <field name="arch" type="xml">
+                 <graph type="pivot">
+                     <field name="ordinateur_id" type="row"/>
+                     <field name="nb_modifs"     type="measure"/>
+                 </graph>
+             </field>
+        </record>
+
+
         <record id="is_save_mozilla_action" model="ir.actions.act_window">
             <field name="name">Sauvegarde Mozilla</field>
             <field name="res_model">is.save.mozilla</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
         </record>
 
 
