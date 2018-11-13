@@ -49,6 +49,14 @@ class is_action(models.Model):
 
 
     @api.multi
+    def solder_action_action(self):
+        for obj in self:
+            if obj.action_globale_id.date_realisee:
+                if obj.date_realisee==False:
+                    obj.date_realisee=obj.action_globale_id.date_realisee
+
+
+    @api.multi
     def actualiser_service_action(self):
         for obj in self:
             if obj.service_id.id==False:
@@ -58,7 +66,7 @@ class is_action(models.Model):
                     service_id=obj.ordinateur_id.service_id.id
                 if service_id:
                     obj.service_id=service_id
-            
+
 
     @api.multi
     def acceder_action(self):

@@ -129,6 +129,18 @@
 
 
 
+        <!-- Actualiser service -->
+        <record id="solder_action_action_server" model="ir.actions.server">
+             <field name="name">Solder l'action</field>
+            <field name="model_id" ref="model_is_action"/>
+            <field name="code">action = self.solder_action_action(cr, uid, context.get('active_ids', []), context=context)</field>
+        </record>
+        <record id="solder_action_action_ir_value" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'is.action'" name="model"/>
+            <field name="name">Solder l'action</field>
+            <field eval="'ir.actions.server,%d'%solder_action_action_server" name="value"/>
+        </record>
 
 
 
