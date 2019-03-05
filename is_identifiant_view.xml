@@ -42,6 +42,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" />
+                    <field name="mot_de_passe" />
                     <field name="site_id" />
                     <field name="service_id" />
                     <field name="utilisateur_id" />
@@ -54,7 +55,6 @@
                     <field name="bluemind" />
                     <field name="mail" />
                     <field name="tightvnc" />
-                    <field name="commentaire" />
                 </tree>
             </field>
         </record>

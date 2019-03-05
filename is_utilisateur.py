@@ -39,7 +39,18 @@ class is_utilisateur(models.Model):
     login           = fields.Char('Login'     , required=True)
     mail            = fields.Char('Mail')
     service_id      = fields.Many2one('is.service', 'Service')
+    fonction        = fields.Char('Fonction')
+    telephone       = fields.Char('Téléphone')
+    portable        = fields.Char('Portable')
+    fax             = fields.Char('Fax')
+    autre           = fields.Char('Autre')
     commentaire     = fields.Text('Commentaire')
     action_ids      = fields.One2many('is.action', 'utilisateur_id', u'Actions', readonly=True)
     active          = fields.Boolean('Actif', default=True)
+
+
+    @api.multi
+    def generer_signature_mail(self):
+        for obj in self:
+            print(obj)
 
