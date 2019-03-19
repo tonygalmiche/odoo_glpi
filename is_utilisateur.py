@@ -142,7 +142,7 @@ class is_utilisateur(models.Model):
                 <p>"""+nom+u"""</p>
             """
             vals={
-                'email_from'    : 'robot@plastigray.com', 
+                'email_from'    : email_from, 
                 'email_to'      : email_to, 
                 'email_cc'      : email_from,
                 'subject'       : subject,
