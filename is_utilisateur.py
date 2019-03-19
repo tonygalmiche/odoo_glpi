@@ -52,26 +52,46 @@ class is_utilisateur(models.Model):
 
 
     @api.multi
+    def get_tr(self,val):
+        if val and val!='':
+            val=u"""
+                <tr>
+                    <td>
+                        <font size="3" color="#939393">"""+val+u"""</font>
+                    </td>
+                </tr>
+            """
+        else:
+            val=''
+        return val
+
+
+    @api.multi
     def generer_signature_mail(self):
         for obj in self:
             html=obj.site_id.signature_mail
-            fonction  = obj.fonction  or ''
             telephone = obj.telephone or ''
-            portable  = obj.portable  or ''
-            fax       = obj.fax       or ''
-            autre     = obj.autre     or ''
+            portable  = obj.portable or ''
+            fax       = obj.fax or ''
             if telephone != '':
                 telephone = u'Tél : '+telephone
             if portable != '':
                 portable = u'Mobile : '+portable
             if fax != '':
                 fax = u'Fax : '+fax
+
+            fonction  = self.get_tr(obj.fonction)
+            telephone = self.get_tr(telephone)
+            portable  = self.get_tr(portable)
+            fax       = self.get_tr(fax)
+            autre     = self.get_tr(obj.autre)
+
             html = html.replace('[name]'     , (obj.name or ''))
-            html = html.replace('[fonction]' , fonction)
-            html = html.replace('[telephone]', telephone)
-            html = html.replace('[portable]' , portable)
-            html = html.replace('[fax]'      , fax)
-            html = html.replace('[autre]'    , autre)
+            html = html.replace('<tr><td>[fonction]</td></tr>' , fonction)
+            html = html.replace('<tr><td>[telephone]</td></tr>', telephone)
+            html = html.replace('<tr><td>[portable]</td></tr>' , portable)
+            html = html.replace('<tr><td>[fax]</td></tr>'      , fax)
+            html = html.replace('<tr><td>[autre]</td></tr>'    , autre)
             if html:
                 obj.signature_mail = html
 
@@ -111,6 +131,9 @@ class is_utilisateur(models.Model):
             email_to=obj.mail
             user  = self.env['res.users'].browse(self._uid)
             email_from = user.email
+
+            email_to = email_from
+
             nom   = user.name
             body_html=u"""
                 <p>Bonjour,</p>

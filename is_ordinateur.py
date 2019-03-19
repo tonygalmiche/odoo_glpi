@@ -107,7 +107,7 @@ class is_ordinateur(models.Model):
                     c.serial,
                     c.os_license_number,
                     c.os_licenseid,
-                    c.date_mod,
+                    agents.last_contact,
                     os.name,
                     ossp.name,
                     f.bios_date,
@@ -117,6 +117,8 @@ class is_ordinateur(models.Model):
                 FROM glpi_computers c left outer join glpi_operatingsystems os on c.operatingsystems_id=os.id
                                       left outer join glpi_operatingsystemservicepacks ossp on c.operatingsystemversions_id=ossp.id
                                       left outer join glpi_plugin_fusioninventory_inventorycomputercomputers f on f.computers_id=c.id
+                                      left outer join glpi_plugin_fusioninventory_agents agents on c.id=agents.computers_id
+
                 WHERE c.name='"""+obj.name+"""'
             """
             cur.execute(SQL)
