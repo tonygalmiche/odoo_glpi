@@ -87,6 +87,7 @@ class is_utilisateur(models.Model):
             autre     = self.get_tr(obj.autre)
 
             html = html.replace('[name]'     , (obj.name or ''))
+            html = html.replace('[mail]'     , (obj.mail or ''))
             html = html.replace('<tr><td>[fonction]</td></tr>' , fonction)
             html = html.replace('<tr><td>[telephone]</td></tr>', telephone)
             html = html.replace('<tr><td>[portable]</td></tr>' , portable)
