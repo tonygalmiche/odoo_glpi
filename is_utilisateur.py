@@ -132,14 +132,13 @@ class is_utilisateur(models.Model):
             email_to=obj.mail
             user  = self.env['res.users'].browse(self._uid)
             email_from = user.email
-
             email_to = email_from
-
             nom   = user.name
             body_html=u"""
                 <p>Bonjour,</p>
-                <p>Veuillez trouver ci-joint une nouvelle signature pour votre mail.</p>
-                <p>Merci de mettre en place celle-ci dans Thunderbird.</p>
+                <p>voici la nouvelle signature mail conforme IATF à installer dans Thunderbird.</p>
+                <p>Vous trouverez ci-joint un fichier HTML à télécharger (la signature), ainsi qu'une procédure pour l'installer.</p>
+                <p>Merci de me confirmer l'installation par retour de mail.</p>
                 <p>"""+nom+u"""</p>
             """
             vals={
