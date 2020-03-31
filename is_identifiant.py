@@ -27,3 +27,40 @@ class is_identifiant(models.Model):
     commentaire      = fields.Text('Commentaire')
     active           = fields.Boolean('Actif', default=True)
 
+
+    @api.multi
+    def envoyer_identifiant_bluemind_action(self):
+        for obj in self:
+            if obj.bluemind == True:
+                subject=u'['+obj.utilisateur_id.name+u'] Identifiant Bluemind'
+                email_to   = obj.utilisateur_id.mail
+                user       = self.env['res.users'].browse(self._uid)
+                email_from = user.email
+                nom        = user.name
+                if email_to :
+                    body_html=u"""
+                        <p>Bonjour,</p>
+                        <p>Nous avons mis en place la nouvelle version de l'agenda Bluemind et migré tous les comptes ainsi que votre agenda tel qu'il était à la date de la migration.</p>
+                        <p>L'adresse pour y accéder est : <b><a href="https://bluemind4.plastigray.com">https://bluemind4.plastigray.com</a></b></p>
+                        <p>
+                            Vos identifiants sont désormais :<br>
+                            - Identifiant : <b>"""+obj.name+u"""</b><br>
+                            - Mot de passe : <b>"""+obj.mot_de_passe+u"""</b><br>
+                        </p>
+                        <p>Vous pouvez supprimer tous les raccourcis et mots de passe pour l'ancien Bluemind dans votre navigateur.</p>
+                        <p>Suite à des contraintes techniques indépendantes de notre volonté, il sera nécessaire de supprimer puis recréer toutes les réservations de ressource.</p>
+                        <p>Nous sommes conscient des désagréments engendrés, mais nous n'avons pas d'autre solution à proposer.</p>
+                        <p>Cordialement</p>
+                        <p>"""+nom+u"""</p>
+                    """
+                    vals={
+                        'email_from'    : email_from, 
+                        'email_to'      : email_to, 
+                        'email_cc'      : email_from,
+                        'subject'       : subject,
+                        'body_html'     : body_html,
+                    }
+                    email=self.env['mail.mail'].create(vals)
+                    if email:
+                        self.env['mail.mail'].send(email)
+

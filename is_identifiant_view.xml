@@ -68,15 +68,14 @@
                     <field name="service_id" />
                     <field name="utilisateur_id" />
                     <field name="ordinateur_id" />
-                    <field name="admin_ordinateur" />
-                    <field name="cpt_utilisateur" />
-                    <field name="lam_gray" />
-                    <field name="lam_st_brice" />
-                    <field name="lam_pk" />
-                    <field name="bluemind" />
-                    <field name="mail" />
-                    <field name="tightvnc" />
                     <field name="commentaire" />
+                    <filter string="Compte utilisateur" name="cpt_utilisateur" domain="[('cpt_utilisateur','=',True)]"/>
+                    <filter string="LAM Gray"           name="lam_gray"        domain="[('lam_gray','=',True)]"/>
+                    <filter string="LAM ST-Brice"       name="lam_st_brice"    domain="[('lam_st_brice','=',True)]"/>
+                    <filter string="LAM PK"             name="lam_pk"          domain="[('lam_pk','=',True)]"/>
+                    <filter string="Bluemind"           name="bluemind"        domain="[('bluemind','=',True)]"/>
+                    <filter string="Mail FC-NET"        name="mail"            domain="[('mail','=',True)]"/>
+                    <filter string="TightVNC"           name="tightvnc"        domain="[('tightvnc','=',True)]"/>
                 </search>
             </field>
         </record>
@@ -87,5 +86,19 @@
             <field name="view_mode">tree,form</field>
             <field name="limit">500</field>
         </record>
+
+        <!-- Envoyer identifiant Bluemind -->
+        <record id="envoyer_identifiant_bluemind_action_server" model="ir.actions.server">
+             <field name="name">Envoyer identifiant Bluemind par mail</field>
+            <field name="model_id" ref="model_is_identifiant"/>
+            <field name="code">action = self.envoyer_identifiant_bluemind_action(cr, uid, context.get('active_ids', []), context=context)</field>
+        </record>
+        <record id="envoyer_identifiant_bluemind_ir_value" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'is.identifiant'" name="model"/>
+            <field name="name">Envoyer identifiant Bluemind par mail</field>
+            <field eval="'ir.actions.server,%d'%envoyer_identifiant_bluemind_action_server" name="value"/>
+        </record>
+
     </data>
 </openerp>
