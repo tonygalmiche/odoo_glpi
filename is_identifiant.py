@@ -40,16 +40,13 @@ class is_identifiant(models.Model):
                 if email_to :
                     body_html=u"""
                         <p>Bonjour,</p>
-                        <p>Nous avons mis en place la nouvelle version de l'agenda Bluemind et migré tous les comptes ainsi que votre agenda tel qu'il était à la date de la migration.</p>
+                        <p>Nous avons créé votre compte dans l'agenda partagé Bluemind4 de Plastigray.</p>
                         <p>L'adresse pour y accéder est : <b><a href="https://bluemind4.plastigray.com">https://bluemind4.plastigray.com</a></b></p>
                         <p>
-                            Vos identifiants sont désormais :<br>
+                            Vos identifiants sont :<br>
                             - Identifiant : <b>"""+obj.name+u"""</b><br>
                             - Mot de passe : <b>"""+obj.mot_de_passe+u"""</b><br>
                         </p>
-                        <p>Vous pouvez supprimer tous les raccourcis et mots de passe pour l'ancien Bluemind dans votre navigateur.</p>
-                        <p>Suite à des contraintes techniques indépendantes de notre volonté, il sera nécessaire de supprimer puis recréer toutes les réservations de ressource.</p>
-                        <p>Nous sommes conscient des désagréments engendrés, mais nous n'avons pas d'autre solution à proposer.</p>
                         <p>Cordialement</p>
                         <p>"""+nom+u"""</p>
                     """
