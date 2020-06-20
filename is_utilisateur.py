@@ -69,6 +69,8 @@ class is_utilisateur(models.Model):
     @api.multi
     def generer_signature_mail(self):
         for obj in self:
+            if not obj.site_id.signature_mail:
+                raise Warning(u"Signature mail non renseignée pour le site "+obj.site_id.name)
             html=obj.site_id.signature_mail
             telephone = obj.telephone or ''
             portable  = obj.portable or ''
@@ -100,6 +102,8 @@ class is_utilisateur(models.Model):
     @api.multi
     def envoyer_signature_mail(self):
         for obj in self:
+            if not obj.signature_mail:
+                raise Warning(u"Signature mail non générée pour "+obj.name)
             name = 'signature-mail.html'
             path = '/tmp/' + name
             f = open(path,'wb')
@@ -132,7 +136,7 @@ class is_utilisateur(models.Model):
             email_to=obj.mail
             user  = self.env['res.users'].browse(self._uid)
             email_from = user.email
-            email_to = email_from
+            email_to = obj.mail
             nom   = user.name
             body_html=u"""
                 <p>Bonjour,</p>
@@ -141,13 +145,31 @@ class is_utilisateur(models.Model):
                 <p>Merci de me confirmer l'installation par retour de mail.</p>
                 <p>"""+nom+u"""</p>
             """
+
+
+            attachment_ids = []
+            attachment_ids.append(attachment.id)
+
+            # ** Ajout des pieces jointes associèes au site ********************
+            attachments = attachment_obj.search([('res_model','=','is.site'),('res_id','=',obj.site_id.id)])
+
+            #print attachments
+
+
+            for attachment in attachments:
+                attachment_ids.append(attachment.id)
+            # ******************************************************************
+
+
+            #print attachment_ids
+
             vals={
                 'email_from'    : email_from, 
                 'email_to'      : email_to, 
                 'email_cc'      : email_from,
                 'subject'       : subject,
                 'body_html'     : body_html,
-                'attachment_ids': [(6, 0, [attachment.id])] 
+                'attachment_ids': [(6, 0, attachment_ids)] 
             }
             email=self.env['mail.mail'].create(vals)
             if email:
