@@ -140,12 +140,10 @@ class is_utilisateur(models.Model):
             nom   = user.name
             body_html=u"""
                 <p>Bonjour,</p>
-                <p>voici la nouvelle signature mail conforme IATF à installer dans Thunderbird.</p>
-                <p>Vous trouverez ci-joint un fichier HTML à télécharger (la signature), ainsi qu'une procédure pour l'installer.</p>
-                <p>Merci de me confirmer l'installation par retour de mail.</p>
+                <p>Voici la signature mail nouveau format, avec les liens vers les réseaux sociaux et le site de Plastigray.</p>
+                <p>Vous trouverez ci-joint le fichier signature HTML à télécharger, ainsi que la procédure en PDF pour configurer le logiciel de messagerie.</p>
                 <p>"""+nom+u"""</p>
             """
-
 
             attachment_ids = []
             attachment_ids.append(attachment.id)
