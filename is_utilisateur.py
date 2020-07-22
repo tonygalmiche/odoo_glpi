@@ -69,7 +69,6 @@ class is_utilisateur(models.Model):
     @api.multi
     def generer_signature_mail(self):
         for obj in self:
-            print 'generer_signature_mail',obj.name
             if not obj.site_id.signature_mail:
                 raise Warning(u"Signature mail non renseignée pour le site "+obj.site_id.name)
             html=obj.site_id.signature_mail
@@ -105,7 +104,6 @@ class is_utilisateur(models.Model):
     def generer_piece_jointe(self):
         model=self._name
         for obj in self:
-            print 'generer_piece_jointe',obj.name
             if not obj.signature_mail:
                 raise Warning(u"Signature mail non générée pour "+obj.name)
             name = 'signature-mail.html'
