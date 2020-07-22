@@ -69,6 +69,7 @@ class is_utilisateur(models.Model):
     @api.multi
     def generer_signature_mail(self):
         for obj in self:
+            print 'generer_signature_mail',obj.name
             if not obj.site_id.signature_mail:
                 raise Warning(u"Signature mail non renseignée pour le site "+obj.site_id.name)
             html=obj.site_id.signature_mail
@@ -97,11 +98,14 @@ class is_utilisateur(models.Model):
             html = html.replace('<tr><td>${autre}</td></tr>'    , autre)
             if html:
                 obj.signature_mail = html
+            obj.generer_piece_jointe()
 
 
     @api.multi
-    def envoyer_signature_mail(self):
+    def generer_piece_jointe(self):
+        model=self._name
         for obj in self:
+            print 'generer_piece_jointe',obj.name
             if not obj.signature_mail:
                 raise Warning(u"Signature mail non générée pour "+obj.name)
             name = 'signature-mail.html'
@@ -132,6 +136,14 @@ class is_utilisateur(models.Model):
                     attachment.write(vals)
             else:
                 attachment = attachment_obj.create(vals)
+            # ******************************************************************
+
+
+    @api.multi
+    def envoyer_signature_mail(self):
+        model=self._name
+        for obj in self:
+            self.generer_signature_mail()
             subject=u'['+obj.name+u'] Nouvelle signature de mail'
             email_to=obj.mail
             user  = self.env['res.users'].browse(self._uid)
@@ -144,22 +156,17 @@ class is_utilisateur(models.Model):
                 <p>Vous trouverez ci-joint le fichier signature HTML à télécharger, ainsi que la procédure en PDF pour configurer le logiciel de messagerie.</p>
                 <p>"""+nom+u"""</p>
             """
-
             attachment_ids = []
-            attachment_ids.append(attachment.id)
+            attachment_obj = self.env['ir.attachment']
+            attachments = attachment_obj.search([('res_model','=',model),('res_id','=',obj.id)])
+            for attachment in attachments:
+                attachment_ids.append(attachment.id)
 
             # ** Ajout des pieces jointes associèes au site ********************
             attachments = attachment_obj.search([('res_model','=','is.site'),('res_id','=',obj.site_id.id)])
-
-            #print attachments
-
-
             for attachment in attachments:
                 attachment_ids.append(attachment.id)
             # ******************************************************************
-
-
-            #print attachment_ids
 
             vals={
                 'email_from'    : email_from, 
