@@ -24,6 +24,7 @@ class is_identifiant(models.Model):
     bluemind         = fields.Boolean('Bluemind'                          , default=False)
     mail             = fields.Boolean('Mail FC-NET'                       , default=False)
     tightvnc         = fields.Boolean('TightVNC'                          , default=False)
+    odoo             = fields.Boolean('Odoo'                              , default=False)
     commentaire      = fields.Text('Commentaire')
     active           = fields.Boolean('Actif', default=True)
 
