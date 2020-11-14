@@ -16,8 +16,8 @@ class is_identifiant(models.Model):
     service_id       = fields.Many2one('is.service', 'Service')
     utilisateur_id   = fields.Many2one('is.utilisateur', 'Utilisateur')
     ordinateur_id    = fields.Many2one('is.ordinateur', 'Ordinateur')
-    admin_ordinateur = fields.Boolean("Compte admin de l'ordinateur"      , default=False)
-    cpt_utilisateur  = fields.Boolean("Compte utilisateur de l'ordinateur", default=False)
+    admin_ordinateur = fields.Boolean("Compte admin ordinateur"           , default=False)
+    cpt_utilisateur  = fields.Boolean("Compte utilisateur ordinateur"     , default=False)
     lam_gray         = fields.Boolean('LAM Gray'                          , default=False)
     lam_st_brice     = fields.Boolean('LAM ST-Brice'                      , default=False)
     lam_pk           = fields.Boolean('LAM PK'                            , default=False)
@@ -25,6 +25,8 @@ class is_identifiant(models.Model):
     mail             = fields.Boolean('Mail FC-NET'                       , default=False)
     tightvnc         = fields.Boolean('TightVNC'                          , default=False)
     odoo             = fields.Boolean('Odoo'                              , default=False)
+    microsoft        = fields.Boolean('Microsoft'                         , default=False, help=u'Compte Microsoft, Skype ou Teams')
+
     commentaire      = fields.Text('Commentaire')
     active           = fields.Boolean('Actif', default=True)
 

@@ -26,6 +26,7 @@
                                 <field name="mail"/>
                                 <field name="tightvnc"/>
                                 <field name="odoo"/>
+                                <field name="microsoft"/>
                             </group>
                         </group>
                         <group>
@@ -57,6 +58,7 @@
                     <field name="mail"/>
                     <field name="tightvnc"/>
                     <field name="odoo"/>
+                    <field name="microsoft"/>
                 </tree>
             </field>
         </record>
@@ -79,6 +81,7 @@
                     <filter string="Mail FC-NET"        name="mail"            domain="[('mail','=',True)]"/>
                     <filter string="TightVNC"           name="tightvnc"        domain="[('tightvnc','=',True)]"/>
                     <filter string="Odoo"               name="odoo"            domain="[('odoo','=',True)]"/>
+                    <filter string="Microsoft"          name="microsoft"       domain="[('microsoft','=',True)]"/>
                 </search>
             </field>
         </record>
