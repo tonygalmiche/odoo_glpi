@@ -57,7 +57,7 @@ class is_utilisateur(models.Model):
             val=u"""
                 <tr>
                     <td>
-                        <font size="3" color="#939393">"""+val+u"""</font>
+                        <font size="2" color="#939393">"""+val+u"""</font>
                     </td>
                 </tr>
             """
