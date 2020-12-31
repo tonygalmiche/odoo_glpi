@@ -41,6 +41,7 @@
                     <field name="adresse_mac" />
                     <field name="site_id" />
                     <field name="ordinateur_id" />
+                    <field name="description_arp"/>
                     <field name="dhcp_hostname" />
                     <field name="dhcp_end" />
                     <field name="origine_modification" />
@@ -59,6 +60,7 @@
                     <field name="adresse_mac" />
                     <field name="site_id" />
                     <field name="ordinateur_id" />
+                    <field name="description_arp"/>
                     <field name="origine_modification" />
                     <field name="commentaire" />
                 </search>
