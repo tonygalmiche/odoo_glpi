@@ -21,6 +21,7 @@ class is_equipement_reseau(models.Model):
     date_modification    = fields.Datetime('Date de modification')
     dhcp_end             = fields.Datetime('Date validité dhcp')
     dhcp_hostname        = fields.Char("Hostname dhcp")
+    description_arp      = fields.Char("Description arp")
     origine_modification = fields.Char('Origine de la modification')
     commentaire          = fields.Text('Commentaire')
     active               = fields.Boolean('Actif', default=True)
