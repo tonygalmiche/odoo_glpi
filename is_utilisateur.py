@@ -13,6 +13,7 @@ class is_site(models.Model):
     name             = fields.Char(u'Site', required=True)
     code             = fields.Char(u'Code', required=True)
     signature_mail   = fields.Html(u'Modèle signature mail',sanitize=False)
+    contenu_mail     = fields.Html(u'Contenu du mail',sanitize=False)
     dest_mozilla_ids = fields.Many2many('is.utilisateur', 'is_site_utilisateur_rel', 'ris_site_id','utilisateur_id', string="Destinataires des anomalies des sauvegardes de Mozilla")
 
 
@@ -148,12 +149,13 @@ class is_utilisateur(models.Model):
             email_from = user.email
             email_to = obj.mail
             nom   = user.name
-            body_html=u"""
-                <p>Bonjour,</p>
-                <p>Voici la signature mail nouveau format, avec les liens vers les réseaux sociaux et le site de Plastigray.</p>
-                <p>Vous trouverez ci-joint le fichier signature HTML à télécharger, ainsi que la procédure en PDF pour configurer le logiciel de messagerie.</p>
-                <p>"""+nom+u"""</p>
-            """
+            # body_html=u"""
+            #     <p>Bonjour,</p>
+            #     <p>Voici la signature mail nouveau format, avec les liens vers les réseaux sociaux et le site de Plastigray.</p>
+            #     <p>Vous trouverez ci-joint le fichier signature HTML à télécharger, ainsi que la procédure en PDF pour configurer le logiciel de messagerie.</p>
+            #     <p>"""+nom+u"""</p>
+            # """
+            body_html = obj.site_id.contenu_mail
             attachment_ids = []
             attachment_obj = self.env['ir.attachment']
             attachments = attachment_obj.search([('res_model','=',model),('res_id','=',obj.id)])

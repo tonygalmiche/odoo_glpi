@@ -17,6 +17,9 @@
                         <group string="Modèle de la signature des mails">
                             <field name="signature_mail" nolabel="1"/>
                         </group>
+                        <group string="Contenu du mail">
+                            <field name="contenu_mail" nolabel="1"/>
+                        </group>
                     </sheet>
                </form>
             </field>
