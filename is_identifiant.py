@@ -21,7 +21,7 @@ class is_identifiant(models.Model):
     lam_gray         = fields.Boolean('LAM Gray'                          , default=False)
     lam_st_brice     = fields.Boolean('LAM ST-Brice'                      , default=False)
     lam_pk           = fields.Boolean('LAM PK'                            , default=False)
-    bluemind         = fields.Boolean('Bluemind'                          , default=False)
+    bluemind         = fields.Boolean('Odoo Agenda'                       , default=False)
     mail             = fields.Boolean('Mail FC-NET'                       , default=False)
     tightvnc         = fields.Boolean('TightVNC'                          , default=False)
     odoo             = fields.Boolean('Odoo'                              , default=False)
@@ -43,8 +43,8 @@ class is_identifiant(models.Model):
                 if email_to :
                     body_html=u"""
                         <p>Bonjour,</p>
-                        <p>Nous avons créé votre compte dans l'agenda partagé Bluemind4 de Plastigray.</p>
-                        <p>L'adresse pour y accéder est : <b><a href="https://bluemind4.plastigray.com">https://bluemind4.plastigray.com</a></b></p>
+                        <p>Nous avons créé votre compte dans l'agenda partagé Odoo de Plastigray.</p>
+                        <p>L'adresse pour y accéder est : <b><a href="https://odoo-agenda.plastigray.com</a></b></p>
                         <p>
                             Vos identifiants sont :<br>
                             - Identifiant : <b>"""+obj.name+u"""</b><br>
