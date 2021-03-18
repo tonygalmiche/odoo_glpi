@@ -35,7 +35,7 @@ class is_identifiant(models.Model):
     def envoyer_identifiant_bluemind_action(self):
         for obj in self:
             if obj.bluemind == True:
-                subject=u'['+obj.utilisateur_id.name+u'] Identifiant Bluemind'
+                subject=u'['+obj.utilisateur_id.name+u'] Identifiant Odoo Agenda'
                 email_to   = obj.utilisateur_id.mail
                 user       = self.env['res.users'].browse(self._uid)
                 email_from = user.email
@@ -44,7 +44,7 @@ class is_identifiant(models.Model):
                     body_html=u"""
                         <p>Bonjour,</p>
                         <p>Nous avons créé votre compte dans l'agenda partagé Odoo de Plastigray.</p>
-                        <p>L'adresse pour y accéder est : <b><a href="https://odoo-agenda.plastigray.com</a></b></p>
+                        <p>L'adresse pour y accéder est : <b><a href="https://odoo-agenda.plastigray.com"</a></b></p>
                         <p>
                             Vos identifiants sont :<br>
                             - Identifiant : <b>"""+obj.name+u"""</b><br>
