@@ -44,7 +44,7 @@ class is_identifiant(models.Model):
                     body_html=u"""
                         <p>Bonjour,</p>
                         <p>Nous avons créé votre compte dans l'agenda partagé Odoo de Plastigray.</p>
-                        <p>L'adresse pour y accéder est : <b><a href="https://odoo-agenda.plastigray.com"</a></b></p>
+                        <p>L'adresse pour y accéder est : <b><a href="https://odoo-agenda.plastigray.com">https://odoo-agenda.plastigray.com</a></b></p>
                         <p>
                             Vos identifiants sont :<br>
                             - Identifiant : <b>"""+obj.name+u"""</b><br>
