@@ -24,7 +24,7 @@ class is_equipement_reseau(models.Model):
     description_arp      = fields.Char("Description arp")
     origine_modification = fields.Char('Origine de la modification')
     commentaire          = fields.Text('Commentaire')
-    #adresse_principale   = fields.Boolean('Adresse réseau principale', default=True, help="Adresse utilisée pour la sauvegarde des messageries")
+    adresse_principale   = fields.Boolean('Adresse réseau principale', default=True, help="Adresse utilisée pour la sauvegarde des messageries")
     active               = fields.Boolean('Actif', default=True)
 
 
