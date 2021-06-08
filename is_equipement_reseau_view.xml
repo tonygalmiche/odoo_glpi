@@ -18,6 +18,7 @@
                                 <field name="dhcp_end"        readonly="1"/>
                             </group>
                             <group>
+                                <field name="principale"           readonly="1"/>
                                 <field name="date_creation"        readonly="1"/>
                                 <field name="date_modification"    readonly="1"/>
                                 <field name="origine_modification" readonly="1"/>
@@ -37,17 +38,18 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="adresse_ip" />
-                    <field name="adresse_mac" />
-                    <field name="site_id" />
-                    <field name="ordinateur_id" />
+                    <field name="adresse_ip"/>
+                    <field name="principale"/>
+                    <field name="adresse_mac"/>
+                    <field name="site_id"/>
+                    <field name="ordinateur_id"/>
                     <field name="description_arp"/>
-                    <field name="dhcp_hostname" />
-                    <field name="dhcp_end" />
-                    <field name="origine_modification" />
-                    <field name="date_creation" />
-                    <field name="date_modification" />
-                    <field name="commentaire" />
+                    <field name="dhcp_hostname"/>
+                    <field name="dhcp_end"/>
+                    <field name="origine_modification"/>
+                    <field name="date_creation"/>
+                    <field name="date_modification"/>
+                    <field name="commentaire"/>
                 </tree>
             </field>
         </record>
@@ -56,9 +58,10 @@
             <field name="model">is.equipement.reseau</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="adresse_ip" />
-                    <field name="adresse_mac" />
-                    <field name="site_id" />
+                    <field name="adresse_ip"/>
+                    <field name="principale"/>
+                    <field name="adresse_mac"/>
+                    <field name="site_id"/>
                     <field name="ordinateur_id" />
                     <field name="description_arp"/>
                     <field name="origine_modification" />
