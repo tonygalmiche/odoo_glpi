@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="is_logiciel_form_view" model="ir.ui.view">
+            <field name="name">is_logiciel_from_view</field>
+            <field name="model">is.logiciel</field>
+            <field name="arch" type="xml">
+                <form create="0">
+                    <sheet>
+                        <group>
+                            <field name="logiciel"    readonly="1"/>
+                            <field name="version"     readonly="1"/>
+                            <field name="nb"          readonly="1"/>
+                            <field name="ordinateurs" readonly="1"/>
+                            <field name="commentaire"/>
+                         </group>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_logiciel_tree_view">
+            <field name="name">is_logiciel_tree_view</field>
+            <field name="model">is.logiciel</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="logiciel"/>
+                    <field name="version"/>
+                    <field name="nb"/>
+                    <field name="ordinateurs"/>
+                    <field name="commentaire"/>
+                </tree>
+            </field>
+        </record>
+        <record id="is_logiciel_search_view" model="ir.ui.view">
+            <field name="name">is_logiciel_search_view</field>
+            <field name="model">is.logiciel</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="logiciel"/>
+                    <field name="version"/>
+                    <field name="ordinateurs"/>
+                    <field name="commentaire"/>
+                </search>
+            </field>
+        </record>
+        <record id="is_logiciel_action" model="ir.actions.act_window">
+            <field name="name">Logiciels</field>
+            <field name="res_model">is.logiciel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</openerp>

@@ -14,4 +14,4 @@ access_is_suivi_sauvegarde,access_is_suivi_sauvegarde,model_is_suivi_sauvegarde,
 access_is_save_serveur,access_is_save_serveur,model_is_save_serveur,base.group_user,1,0,0,0
 access_is_equipement_reseau,access_is_equipement_reseau,model_is_equipement_reseau,base.group_user,1,1,1,0
 access_is_pureftp,access_is_pureftp,model_is_pureftp,base.group_user,1,1,1,0
-
+access_is_logiciel,access_is_logiciel,model_is_logiciel,base.group_user,1,1,1,1

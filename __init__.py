@@ -2,6 +2,7 @@
 
 import is_utilisateur
 import is_ordinateur
+import is_logiciel
 import is_action
 import is_action_globale
 import is_identifiant

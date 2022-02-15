@@ -19,6 +19,7 @@ InfoSaône - Module Odoo GLPI
         "security/ir.model.access.csv",
         "is_utilisateur_view.xml",
         "is_ordinateur_view.xml",
+        "is_logiciel_view.xml",
         "is_action_view.xml",
         "is_action_globale_view.xml",
         "is_identifiant_view.xml",
