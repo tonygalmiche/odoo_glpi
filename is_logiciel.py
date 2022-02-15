@@ -5,6 +5,7 @@ class is_logiciel(models.Model):
     _name = "is.logiciel"
     _description = "Logiciel"
     _order='logiciel,version'
+    _sql_constraints = [('logiciel_version_uniq','UNIQUE(logiciel_id,version_id)', 'Ce logiciel existe deja !')] 
 
     logiciel     = fields.Char('Logiciel'      , select=1)
     logiciel_id  = fields.Integer('Logiciel id', select=1)
