@@ -70,8 +70,8 @@
                     <field name="logiciel"/>
                     <field name="version"/>
                     <field name="nb"/>
-                    <field name="ordinateurs"/>
-                    <field name="commentaire"/>
+                    <field name="ordinateurs" invisible="context.get('ordinateurs',False)"/>
+                    <field name="commentaire" invisible="context.get('commentaire',False)"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -90,6 +90,8 @@
                     <filter string="Ignoré"    name="ignore"    domain="[('state','=','ignore')]"/>
                     <filter string="Autorisé"  name="autorise"  domain="[('state','=','autorise')]"/>
                     <filter string="Interdit"  name="interdit"  domain="[('state','=','interdit')]"/>
+                    <filter name="ordinateurs" filter_domain="[]" context="{'ordinateurs':True}" string="Masquer colonne Ordinateurs"/>
+                    <filter name="commentaire" filter_domain="[]" context="{'commentaire':True}" string="Masquer colonne Commentaire"/>
                 </search>
             </field>
         </record>
