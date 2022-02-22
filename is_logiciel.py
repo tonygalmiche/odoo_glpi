@@ -14,3 +14,26 @@ class is_logiciel(models.Model):
     nb           = fields.Integer('Nb installations')
     ordinateurs  = fields.Text('Ordinateurs')
     commentaire  = fields.Text('Commentaire')
+    state        = fields.Selection([
+        ('ignore'  , u'Ignoré'),
+        ('autorise', u'Autorisé'),
+        ('interdit', u'Interdit'),
+    ], "Etat")
+
+
+    @api.multi
+    def etat_ignore_action(self):
+        for obj in self:
+            obj.state="ignore"
+
+
+    @api.multi
+    def etat_autorise_action(self):
+        for obj in self:
+            obj.state="autorise"
+
+
+    @api.multi
+    def etat_interdit_action(self):
+        for obj in self:
+            obj.state="interdit"
