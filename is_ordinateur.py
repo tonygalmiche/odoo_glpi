@@ -99,7 +99,7 @@ class is_ordinateur(models.Model):
         ct=0
         for obj in self:
             ct=ct+1
-            _logger.info(str(ct)+'/'+str(nb)+u' : Mise à jour GLPI '+str(obj.name))
+            _logger.info(str(ct)+u'/'+str(nb)+u' : Mise à jour GLPI '+str(obj.name))
 #            SQL="""
 #                SELECT 
 #                    c.name,
