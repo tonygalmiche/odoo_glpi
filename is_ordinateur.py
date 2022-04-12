@@ -100,32 +100,13 @@ class is_ordinateur(models.Model):
         for obj in self:
             ct=ct+1
 
-            _logger.info(obj.name.encode('ascii', 'ignore'))
+            #_logger.info(obj.name.encode('ascii', 'ignore'))
 
 
+            name = obj.name.encode('ascii', 'ignore')
 
-            #_logger.info(str(ct)+u'/'+str(nb)+u' : Mise à jour GLPI '+str(obj.name))
-#            SQL="""
-#                SELECT 
-#                    c.name,
-#                    c.contact,
-#                    c.serial,
-#                    c.os_license_number,
-#                    c.os_licenseid,
-#                    agents.last_contact,
-#                    os.name,
-#                    ossp.name,
-#                    f.bios_date,
-#                    f.operatingsystem_installationdate,
-#                    f.remote_addr,
-#                    f.winowner
-#                FROM glpi_computers c left outer join glpi_operatingsystems os on c.operatingsystems_id=os.id
-#                                      left outer join glpi_operatingsystemservicepacks ossp on c.operatingsystemversions_id=ossp.id
-#                                      left outer join glpi_plugin_fusioninventory_inventorycomputercomputers f on f.computers_id=c.id
-#                                      left outer join glpi_plugin_fusioninventory_agents agents on c.id=agents.computers_id
+            _logger.info(str(ct)+u'/'+str(nb)+u' : Mise à jour GLPI '+name)
 
-#                WHERE c.name='"""+obj.name+"""'
-#            """
             SQL="""
                 select
                     c.name,
@@ -146,10 +127,10 @@ class is_ordinateur(models.Model):
                                       left outer join glpi_operatingsystemservicepacks sp on i.operatingsystemservicepacks_id=sp.id
                                       left outer join glpi_plugin_fusioninventory_inventorycomputercomputers f on f.computers_id=c.id
                                       left outer join glpi_plugin_fusioninventory_agents agents on c.id=agents.computers_id
-                WHERE c.name='"""+obj.name+"""'
+                WHERE c.name=%s
             """
 
-            cur.execute(SQL)
+            cur.execute(SQL, [name])
             for row in cur.fetchall():
                 obj.glpi_name              = row[0]
                 obj.glpi_contact           = row[1]
