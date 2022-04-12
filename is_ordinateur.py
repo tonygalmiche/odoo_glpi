@@ -100,7 +100,7 @@ class is_ordinateur(models.Model):
         for obj in self:
             ct=ct+1
 
-            _logger.info(str(obj.name))
+            _logger.info(obj.name.encode('ascii', 'ignore'))
 
 
 
