@@ -74,7 +74,8 @@ class is_ordinateur(models.Model):
 
     glpi_bios_date         = fields.Date('Date du bios', readonly=True)
     glpi_installationdate  = fields.Date("Date d'installation", readonly=True)
-    glpi_remote_addr       = fields.Char('Adresse IP'   , readonly=True)
+    glpi_remote_addr       = fields.Text('Adresse IP'      , readonly=True)
+    glpi_adresse_ip_mac    = fields.Text('Adresse IP+MAC'  , readonly=True)
     glpi_winowner          = fields.Char('Administrateur'  , readonly=True)
 
     net_rpc_users          = fields.Char('net rpc users'   , readonly=True)
