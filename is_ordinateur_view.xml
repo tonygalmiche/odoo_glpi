@@ -210,22 +210,18 @@
                             </page>
                             <page string="GLPI" attrs="{'invisible': [('glpi_name', '=', False)]}">
                                 <group>
-                                    <group>
-                                        <field name="glpi_name"/>
-                                        <field name="glpi_remote_addr"/>
-                                        <field name="glpi_adresse_ip_mac"/>
-                                        <!-- <field name="glpi_operatingsystems"/> -->
-                                        <!-- <field name="glpi_contact"/> -->
-                                        <!-- <field name="glpi_winowner"/> -->
-                                        <field name="glpi_serial"/>
-                                        <!-- <field name="glpi_os_license_number"/> -->
-                                        <!-- <field name="glpi_os_licenseid"/> -->
-                                    </group>
-                                    <group>
-                                        <field name="glpi_date_mod"/>
-                                        <!-- <field name="glpi_bios_date"/> -->
-                                        <!-- <field name="glpi_installationdate" /> -->
-                                    </group>
+                                    <field name="glpi_date_mod"/>
+                                    <!-- <field name="glpi_bios_date"/> -->
+                                    <!-- <field name="glpi_installationdate" /> -->
+                                    <field name="glpi_name"/>
+                                    <field name="glpi_remote_addr"/>
+                                    <field name="glpi_adresse_ip_mac"/>
+                                    <!-- <field name="glpi_operatingsystems"/> -->
+                                    <!-- <field name="glpi_contact"/> -->
+                                    <!-- <field name="glpi_winowner"/> -->
+                                    <field name="glpi_serial"/>
+                                    <!-- <field name="glpi_os_license_number"/> -->
+                                    <!-- <field name="glpi_os_licenseid"/> -->
                                 </group>
                             </page>
 
